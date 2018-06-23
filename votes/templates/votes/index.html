@@ -1,0 +1,34 @@
+<h1>Liste des votes en cours</h1>
+
+{% if latest_votes %}
+    <table>
+    <tr>
+      <th>Deadline</th>
+      <th>Vote</th>
+      <th>Peut voter</th>
+      <th>A voté</th>
+    </tr>
+    {% for vote in latest_votes %}
+        <tr>
+          <td>{{ vote.end_date }}</td>
+          <td><a href="{% url 'votes:detail' vote.slug %}">{{ vote.text }}</a></li>
+          <td>
+            {% if user in vote.can_vote.all %}
+              Oui
+            {% else %}
+              Non
+            {% endif %}
+          </td>
+          <td>
+            {% if user in vote.has_voted.all %}
+              Oui
+            {% else %}
+              Non
+            {% endif %}
+          </td>
+        </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>Pas de vote disponible</p>
+{% endif %}

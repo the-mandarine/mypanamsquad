@@ -1,0 +1,33 @@
+<h1>{{ vote.text }}</h1>
+<p>
+Fin du vote : <b>{{ vote.end_date }}</b><br />
+Sur <b>{{ vote.can_vote.count }}</b> participants, <b>{{ vote.has_voted.count }}</b> ont voté.
+</p>
+{% if activated %}
+<form action="{% url 'votes:vote' vote.slug %}" method="post">
+{% csrf_token %}
+{% for item in vote.voteitem_set.all %}
+  <label>
+  <input type="radio" name="vote" value="{{ item.id  }}" />
+  {{ item.text }}
+  </label>
+{% endfor %}
+  <input type="Submit" value="voter" />
+</form>
+{% else %}
+
+<form action="" method="post">
+{% for item in vote.voteitem_set.all %}
+  <label>
+  <input type="radio" name="vote" disabled />
+  {{ item.text }}
+  </label>
+{% endfor %}
+</form>
+<p>
+{{ error_message }}
+</p>
+{% endif %}
+<p>
+<a href="{% url 'votes:index' %}">All votes</a>
+</p>

@@ -1,0 +1,8 @@
+<h1>{{ vote.text }}</h1>
+<ul>
+{% for item in vote.voteitem_set.all %}
+    <li>{{ item.text }} -- {{ item.results }} vote{{ item.results|pluralize }}</li>
+{% endfor %}
+</ul>
+
+<a href="{% url 'votes:index' %}">All votes</a>
