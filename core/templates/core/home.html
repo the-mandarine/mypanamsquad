@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome to the Panam Squad intranet</h2>
+  {% if user.profile.profile_done  %}
+  <p>Hello {{ user.profile.derby_name }}!</p>
+  <ul>
+    <li><a href={% url 'votes:index' %}>Votes</a></li>
+  </ul>
+  {% else %}
+  <p>Hello {{ user.username }}! Ton compte est en cours de validation par un admin (sans doute La Mandale)
+  N'hésites pas à le contacter si tu es bien un adhérent.</p>
+  {% endif %}
+{% endblock %}
