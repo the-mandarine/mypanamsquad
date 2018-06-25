@@ -8,25 +8,3 @@
 }
 
 
-
-/*
- * Affix and center
- */
-
-@media (min-width: 768px) {
-  .mastfoot {
-    position: fixed;
-    bottom: 0;
-  }
-  .mastfoot {
-    width: 100%; 
-    text-align: center;
-  }
-}
-
-@media (min-width: 992px) {
-  .mastfoot {
-    width: 700px;
-  }
-}
-
