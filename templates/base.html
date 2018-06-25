@@ -46,6 +46,11 @@
             <span class="glyphicon glyphicon-user">&nbsp;</span>
             Profil
           </a></li>
+          {% if user.is_staff %}
+          <li><a href="{% url 'admin:index' %}">
+            <span class="glyphicon glyphicon-cog">&nbsp;</span>
+          </a></li>
+          {% endif %}
         </ul>
       </div>
     </div>
