@@ -2,5 +2,15 @@
 {% load i18n %}
 
 {% block content %}
-<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+  <div class="cover">
+  <h1 class="cover-heading">Hey, salut!</h1>
+  <p class="lead">
+    Bienvenue sur l'intranet de la Panam Squad.
+  </p>
+  <p>
+    <a
+      class="btn btn-info btn-lg col-sm-10 col-sm-offset-1"
+      style="font-size: 40px; line-height: 2em;"
+      href="{% url 'social:begin' 'facebook' %}">Connecte-toi par Facebook</a>
+  </p>
 {% endblock %}

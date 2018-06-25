@@ -1,14 +1,62 @@
 {% extends 'base.html' %}
-
 {% block content %}
-  <h2>Welcome to the Panam Squad intranet</h2>
-  {% if user.profile.profile_done  %}
-  <p>Hello {{ user.profile.derby_name }}!</p>
-  <ul>
-    <li><a href={% url 'votes:index' %}>Votes</a></li>
-  </ul>
+  {% if user.profile  %}
+  <div class="cover">
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-sunglasses">&nbsp;</span>-->
+    Hello {{ user.profile.derby_name }}!
+  </h1>
+  <p class="lead">
+  Bienvenue dans l'intranet de la Panam Squad. C'est un peu vide pour le moment
+  mais on travaille à remplir ce site de nouvelles fonctionnalités rapidement.<br />
+  <br />
+  <div class="list-group lead">
+      <a class="list-group-item list-group-item-action disabled"
+         href="#">
+        <span class="glyphicon glyphicon-user">&nbsp;</span>
+        Edition du profil
+      </a>
+    {% if user.profile.has_been_checked %}
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'votes:index' %}">
+        <span class="glyphicon glyphicon-bullhorn">&nbsp;</span>
+        Votes
+      </a>
+    {% else %}
+      <a class="list-group-item list-group-item-action disabled"
+        href="#">
+        <span class="glyphicon glyphicon-bullhorn">&nbsp;</span>Votes
+      </a>
+    {% endif %}
+      <a class="list-group-item list-group-item-action disabled"
+        href="#">
+        <span class="glyphicon glyphicon-dashboard">&nbsp;</span>
+        Présences
+      </a>
+      <a class="list-group-item list-group-item-action disabled"
+        href="#">
+        <span class="glyphicon glyphicon-calendar">&nbsp;</span>
+        Matchs à venir
+      </a>
+  </div>
+  </p>
   {% else %}
-  <p>Hello {{ user.username }}! Ton compte est en cours de validation par un admin (sans doute La Mandale)
-  N'hésites pas à le contacter si tu es bien un adhérent.</p>
+  <div class="cover">
+    <h1 class="cover-heading">
+      <!--<span class="glyphicon glyphicon-alert">&nbsp;</span>-->
+      Compte inactif
+    </h1>
+    <p class="lead">
+      Coucou {{ user.username }}!<br />
+      <br />
+      Ton compte est en cours de validation par un·e administrateur·rice (sans doute 
+      <a class="" target="blank" href="https://www.facebook.com/la.mandale"><b>La Mandale</b></a>).<br />
+      N'hésite pas à le contacter si tu es bien membre de la Panam Squad.
+    </p>
+    <!--<p class="lead">
+      En attendant, n'hésites pas à remplir ton profil.
+    </p>-->
+  </div>
+
   {% endif %}
 {% endblock %}

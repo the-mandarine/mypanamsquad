@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <div class="lead">
+  {% if not user.profile.derby_name or not user.profile.derby_number %}
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-user">&nbsp;</span>-->
+    Create my profile
+  </h1>
+  <form class="form-horizontal" action="{% url 'profile:base_edit' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="derby_name" class="control-label">
+      Derby name:
+    </label>
+    <input type="text" class="form-control"
+      value="{{ user.profile.derby_name }}"
+      id="derby_name" name="derby_name"/>
+  </div>
+  <div class="form-group">
+    <label for="derby_number" class="control-label">
+      Derby number :
+    </label>
+    <input type="text" class="form-control"
+      value="{{ user.profile.derby_number }}"
+      id="derby_number" name="derby_number"/>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-2 col-md-offset-5">
+      <input type="submit" class="btn btn-lg btn-info" value="Mettre à jour" />
+    </div>
+  </div>
+  </form>
+  {% else %}
+  <h1 class="cover-heading"><span class="glyphicon glyphicon-user">&nbsp;</span>Edit my profile</h1>
+  <form class="form-horizontal" action="{% url 'profile:edit' %}" method="post">
+  <div class="form-group">
+    <label class="control-label col-sm-4">Derby name:</label>
+    <div class="col-sm-8">
+      <p class="form-control-static">
+        {{ user.profile.derby_name }}
+      </p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-4">Derby number:</label>
+    <div class="col-sm-8">
+      <p class="form-control-static">
+        {{ user.profile.derby_number }}
+      </p>
+    </div>
+  </div>
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="real_name" class="control-label">
+      Nom d'usage:
+    </label>
+    <input type="text" class="form-control"
+      id="real_name" name="real_name"
+      placeholder="Prénom Nom" />
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-10 col-sm-10">
+      <input type="submit" class="btn btn-info" value="Mettre à jour" />
+    </div>
+  </div>
+  </form>
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

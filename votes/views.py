@@ -11,15 +11,15 @@ from django.conf import settings
 
 TZ = timezone(settings.TIME_ZONE)
 
-def profile_done(user):
+def has_been_checked(user):
     valid = False
     try:
-        valid = user.profile.profile_done
+        valid = user.profile.has_been_checked
     except:
         valid = False
     return valid
 
-@user_passes_test(profile_done, login_url='/')
+@user_passes_test(has_been_checked, login_url='/')
 def index(request):
     user = request.user
     now = TZ.localize(datetime.now())
@@ -27,14 +27,14 @@ def index(request):
     context = {'latest_votes': latest_votes}
     return render(request, 'votes/index.html', context)
 
-@user_passes_test(profile_done, login_url='/')
+@user_passes_test(has_been_checked, login_url='/')
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
     if request.user not in vote.can_vote.all():
         return render(request, 'votes/detail.html', {
             'vote': vote,
-            'error_message': "You cannot vote on this.",
+            'error_message': "Il t'est impossible de voter sur ce sujet.",
             'activated': False
         })
     if vote.end_date < now or vote.has_voted.count() == vote.can_vote.count():
@@ -42,29 +42,29 @@ def detail(request, slug):
     elif request.user in vote.has_voted.all():
         return render(request, 'votes/detail.html', {
             'vote': vote,
-            'error_message': "You have already voted on this.",
+            'error_message': "Merci d'avoir voté ! Les résultats paraîtront bientôt.",
             'activated': False
         })
     return render(request, 'votes/detail.html', {'vote': vote, 'activated': True})
 
-@user_passes_test(profile_done, login_url='/')
+@user_passes_test(has_been_checked, login_url='/')
 def vote(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
     try:
+        selected = vote.voteitem_set.get(pk=request.POST['vote'])
         assert request.user in vote.can_vote.all()
         assert request.user not in vote.has_voted.all()
-        selected = vote.voteitem_set.get(pk=request.POST['vote'])
     except (KeyError, VoteItem.DoesNotExist):
         return render(request, 'votes/detail.html', {
             'vote': vote,
-            'error_message': "You didn't select a choice.",
+            'error_message': "Il faut sélectionner un choix.",
             'activated': True
         })
     except AssertionError:
         return render(request, 'votes/detail.html', {
             'vote': vote,
-            'error_message': "You cannot vote on this one or you already did.",
+            'error_message': "Tu ne peux pas voter là dessus ou tu l'as déjà fait.",
             'activated': False,
         })
     else:
@@ -73,7 +73,7 @@ def vote(request, slug):
         selected.save()
     return HttpResponseRedirect(reverse('votes:detail', args=(slug,)))
 
-@user_passes_test(profile_done, login_url='/')
+@user_passes_test(has_been_checked, login_url='/')
 def results(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug)

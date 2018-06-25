@@ -1,0 +1,44 @@
+# Register your models here.
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+from django.contrib import admin
+from django.db import models
+from infos.models import Profile
+
+class ProfileAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {'fields': ['user', 'has_been_checked']}),
+        ('Administrative', {'fields': [
+            'has_paid_dues',
+            'has_filled_profile',
+        ]}),
+        ('Derby status', {'fields': [
+            'derby_name',
+            'derby_number',
+        ]}),
+        ('Personal informations', {'fields': [
+                'real_name',
+                'birth_date',
+                'contact_email',
+                'contact_phone',
+                'post_address',
+                'postal_code',
+                'city',
+                'exact_confirmation',
+        ]}),
+        ('Health', {'fields': [
+                'health_certif',
+                'health_certif_date',
+                'health_problems',
+        ]}),
+        ('Agreements', {'fields': [
+                'participate_confirmation',
+                'conduct_confirmation',
+                'allow_confirmation',
+        ]}),
+    ]
+#    filter_horizontal = ('derby_roles',)
+    list_display = ('derby_name', 'derby_number', 'has_been_checked', 'is_full_member',)
+
+admin.site.register(Profile, ProfileAdmin)
+

@@ -1,33 +1,45 @@
-<h1>{{ vote.text }}</h1>
-<p>
-Fin du vote : <b>{{ vote.end_date }}</b><br />
-Sur <b>{{ vote.can_vote.count }}</b> participants, <b>{{ vote.has_voted.count }}</b> ont voté.
-</p>
+{% extends 'base.html' %}
+{% block content %}
+  <div class="cover">
+  <h1 class="cover-heading">{{ vote.text }}</h1>
+  <div class="lead">
+    <span class="glyphicon glyphicon-time"></span>&nbsp;{{ vote.end_date }}.<br />
+    <span class="glyphicon glyphicon-stats"></span>&nbsp;
+    {{ vote.has_voted.count }} ont voté sur {{ vote.can_vote.count }}.
+  </div>
+{% if error_message %}
+<div class="alert alert-info" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+
+  <div>
 {% if activated %}
-<form action="{% url 'votes:vote' vote.slug %}" method="post">
+<form class="lead" action="{% url 'votes:vote' vote.slug %}" method="post">
 {% csrf_token %}
+  <div class="form-group">
 {% for item in vote.voteitem_set.all %}
-  <label>
-  <input type="radio" name="vote" value="{{ item.id  }}" />
-  {{ item.text }}
-  </label>
+    <label class="radio">
+      <input type="radio" name="vote" value="{{ item.id  }}" />
+      {{ item.text }}
+    </label>
 {% endfor %}
-  <input type="Submit" value="voter" />
+  </div>
+  <input class="form-control btn btn-default" type="submit" value="voter" />
 </form>
+
 {% else %}
 
-<form action="" method="post">
+<form class="lead" action="" method="post">
+  <div class="form-group">
 {% for item in vote.voteitem_set.all %}
-  <label>
+  <label class="radio disabled">
   <input type="radio" name="vote" disabled />
   {{ item.text }}
   </label>
 {% endfor %}
+  </div>
 </form>
-<p>
-{{ error_message }}
-</p>
 {% endif %}
-<p>
-<a href="{% url 'votes:index' %}">All votes</a>
-</p>
+  </div>
+{% endblock %}

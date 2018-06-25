@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from core import views as core_views
 from votes import urls as votes_urls
+from infos import urls as infos_urls
 
 urlpatterns = [
     url(r'^$', core_views.home, name='home'),
@@ -28,4 +29,5 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
     url(r'^votes/', include(votes_urls)),
+    url(r'^profile/', include(infos_urls)),
 ]

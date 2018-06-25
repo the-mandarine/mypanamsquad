@@ -1,8 +1,26 @@
-<h1>{{ vote.text }}</h1>
-<ul>
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <h1 class="cover-heading">{{ vote.text }}</h1>
+  <div class="lead">
 {% for item in vote.voteitem_set.all %}
-    <li>{{ item.text }} -- {{ item.results }} vote{{ item.results|pluralize }}</li>
+    {{ item.text }}
+    <div class="progress" style="width: 80%;">
+      <div
+{% if item.has_equal and item.has_won %}
+        class="progress-bar progress-bar-warning"
+{% elif item.has_won %}
+        class="progress-bar progress-bar-success"
+{% else %}
+        class="progress-bar"
+{% endif %}
+        role="progressbar"
+        style="width:{{ item.get_percent_voted }}%; text-align:left; padding-left:5px;">
+        <b>{{ item.results }} vote{{item.results|pluralize}}</b>
+      </div>
+    </div>
 {% endfor %}
-</ul>
+  </div>
+</div>
+{% endblock %}
 
-<a href="{% url 'votes:index' %}">All votes</a>

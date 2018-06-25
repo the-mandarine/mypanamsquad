@@ -1,34 +1,61 @@
-<h1>Liste des votes en cours</h1>
-
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-bullhorn">&nbsp;</span>-->
+    Votes
+  </h1>
+  <div class="lead">
 {% if latest_votes %}
-    <table>
+    <table class="table lead">
+    <thead>
     <tr>
       <th>Deadline</th>
       <th>Vote</th>
       <th>Peut voter</th>
       <th>A voté</th>
     </tr>
+    </thead>
+    <tbody>
     {% for vote in latest_votes %}
+      {% if user in vote.can_vote.all and not user in vote.has_voted.all %}
+        {% if vote.is_open %}
+        <tr class="info">
+        {% else %}
+        <tr class="danger">
+        {% endif %}
+      {% else %}
         <tr>
-          <td>{{ vote.end_date }}</td>
+      {% endif %}
+          <td>
+            {% if vote.is_open %}
+              <span class="glyphicon glyphicon-folder-open">&nbsp;</span>{{ vote.end_date }}
+            {% else %}
+              <span class="glyphicon glyphicon-folder-close">&nbsp;</span>{{ vote.end_date }}
+            {% endif %}
+          </td>
           <td><a href="{% url 'votes:detail' vote.slug %}">{{ vote.text }}</a></li>
           <td>
             {% if user in vote.can_vote.all %}
-              Oui
+              <span class="glyphicon glyphicon-ok"></span>
             {% else %}
-              Non
+              <span class="glyphicon glyphicon-remove"></span>
             {% endif %}
           </td>
           <td>
             {% if user in vote.has_voted.all %}
-              Oui
+              <span class="glyphicon glyphicon-ok"></span>
             {% else %}
-              Non
+              <span class="glyphicon glyphicon-remove"></span>
             {% endif %}
           </td>
         </tr>
     {% endfor %}
+    </tbody>
     </table>
 {% else %}
-    <p>Pas de vote disponible</p>
+    Pas de vote disponible
 {% endif %}
+  </div>
+</div>
+{% endblock %}
