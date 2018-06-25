@@ -13,10 +13,10 @@ class Profile(models.Model):
                     ('NoSkate', 'License FFRS sans patins'))
 
     # bypass for votes
-    has_been_checked = models.BooleanField()
+    has_been_checked = models.BooleanField(default = False)
     # validation from secretary and treasurer
-    has_paid_dues = models.BooleanField()
-    has_filled_profile = models.BooleanField()
+    has_paid_dues = models.BooleanField(default = False)
+    has_filled_profile = models.BooleanField(default = False)
 
     # actual profile
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -35,10 +35,10 @@ class Profile(models.Model):
 
     ffrs_status = models.CharField(max_length=8, choices=FFRS_CHOICES, default='PSquad')
     # Engagements (to fill only once)
-    participate_confirmation = models.BooleanField()
-    conduct_confirmation = models.BooleanField()
-    exact_confirmation = models.BooleanField()
-    allow_confirmation = models.BooleanField()
+    participate_confirmation = models.BooleanField(default = False)
+    conduct_confirmation = models.BooleanField(default = False)
+    exact_confirmation = models.BooleanField(default = False)
+    allow_confirmation = models.BooleanField(default = False)
 
     def is_full_member(self):
         return self.has_paid_dues and self.has_filled_profile

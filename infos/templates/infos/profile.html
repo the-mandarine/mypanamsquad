@@ -5,9 +5,20 @@
   {% if not user.profile.derby_name or not user.profile.derby_number %}
   <h1 class="cover-heading">
     <!--<span class="glyphicon glyphicon-user">&nbsp;</span>-->
-    Create my profile
+    Créer mon profil
   </h1>
-  <form class="form-horizontal" action="{% url 'profile:base_edit' %}" method="post">
+{% if error_message %}
+<div class="alert alert-danger" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+{% if success_message %}
+<div class="alert alert-success" role="alert">
+  {{ success_message }}
+</div>
+{% endif %}
+
+  <form class="form-horizontal" action="{% url 'profile:create' %}" method="post">
   {% csrf_token %}
   <div class="form-group">
     <label for="derby_name" class="control-label">
@@ -25,14 +36,35 @@
       value="{{ user.profile.derby_number }}"
       id="derby_number" name="derby_number"/>
   </div>
+  <div class="form-group">
+    <label for="real_name" class="control-label">
+      Nom d'usage:
+    </label>
+    <input type="text" class="form-control"
+      id="real_name" name="real_name"
+      placeholder="Prénom Nom" />
+  </div>
   <div class="form-group row">
     <div class="col-md-2 col-md-offset-5">
-      <input type="submit" class="btn btn-lg btn-info" value="Mettre à jour" />
+      <input type="submit" class="btn btn-lg btn-info" value="Créer" />
     </div>
   </div>
   </form>
   {% else %}
-  <h1 class="cover-heading"><span class="glyphicon glyphicon-user">&nbsp;</span>Edit my profile</h1>
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-user">&nbsp;</span>-->
+    Edit my profile
+  </h1>
+{% if error_message %}
+<div class="alert alert-danger" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+{% if success_message %}
+<div class="alert alert-success" role="alert">
+  {{ success_message }}
+</div>
+{% endif %}
   <form class="form-horizontal" action="{% url 'profile:edit' %}" method="post">
   <div class="form-group">
     <label class="control-label col-sm-4">Derby name:</label>
@@ -50,15 +82,15 @@
       </p>
     </div>
   </div>
-  {% csrf_token %}
   <div class="form-group">
-    <label for="real_name" class="control-label">
-      Nom d'usage:
-    </label>
-    <input type="text" class="form-control"
-      id="real_name" name="real_name"
-      placeholder="Prénom Nom" />
+    <label class="control-label col-sm-4">Nom d'usage:</label>
+    <div class="col-sm-8">
+      <p class="form-control-static">
+        {{ user.profile.real_name }}
+      </p>
+    </div>
   </div>
+  {% csrf_token %}
   <div class="form-group">
     <div class="col-sm-offset-10 col-sm-10">
       <input type="submit" class="btn btn-info" value="Mettre à jour" />
