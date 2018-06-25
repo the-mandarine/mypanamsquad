@@ -31,14 +31,14 @@ def index(request):
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
+    if vote.end_date < now or vote.has_voted.count() == vote.can_vote.count():
+        return HttpResponseRedirect(reverse('votes:results', args=(slug,)))
     if request.user not in vote.can_vote.all():
         return render(request, 'votes/detail.html', {
             'vote': vote,
             'error_message': "Il t'est impossible de voter sur ce sujet.",
             'activated': False
         })
-    if vote.end_date < now or vote.has_voted.count() == vote.can_vote.count():
-        return HttpResponseRedirect(reverse('votes:results', args=(slug,)))
     elif request.user in vote.has_voted.all():
         return render(request, 'votes/detail.html', {
             'vote': vote,
