@@ -31,7 +31,9 @@ def index(request):
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
-    if request.user not in vote.can_vote.all():
+    if vote.end_date < now or vote.has_voted.count() == vote.can_vote.count():
+        return HttpResponseRedirect(reverse('votes:results', args=(slug,)))
+    if request.user.profile not in vote.can_vote.all():
         return render(request, 'votes/detail.html', {
             'vote': vote,
             'error_message': "Il t'est impossible de voter sur ce sujet.",
@@ -39,7 +41,7 @@ def detail(request, slug):
         })
     if vote.end_date < now or vote.has_voted.count() == vote.can_vote.count():
         return HttpResponseRedirect(reverse('votes:results', args=(slug,)))
-    elif request.user in vote.has_voted.all():
+    elif request.user.profile in vote.has_voted.all():
         return render(request, 'votes/detail.html', {
             'vote': vote,
             'error_message': "Merci d'avoir voté ! Les résultats paraîtront bientôt.",
@@ -53,8 +55,8 @@ def vote(request, slug):
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
     try:
         selected = vote.voteitem_set.get(pk=request.POST['vote'])
-        assert request.user in vote.can_vote.all()
-        assert request.user not in vote.has_voted.all()
+        assert request.user.profile in vote.can_vote.all()
+        assert request.user.profile not in vote.has_voted.all()
     except (KeyError, VoteItem.DoesNotExist):
         return render(request, 'votes/detail.html', {
             'vote': vote,
@@ -68,7 +70,7 @@ def vote(request, slug):
             'activated': False,
         })
     else:
-        vote.has_voted.add(request.user)
+        vote.has_voted.add(request.user.profile)
         selected.results += 1
         selected.save()
     return HttpResponseRedirect(reverse('votes:detail', args=(slug,)))

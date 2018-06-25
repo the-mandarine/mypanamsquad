@@ -18,7 +18,7 @@
     </thead>
     <tbody>
     {% for vote in latest_votes %}
-      {% if user in vote.can_vote.all and not user in vote.has_voted.all %}
+      {% if user.profile in vote.can_vote.all and not user.profile in vote.has_voted.all %}
         {% if vote.is_open %}
         <tr class="info">
         {% else %}
@@ -36,14 +36,14 @@
           </td>
           <td><a href="{% url 'votes:detail' vote.slug %}">{{ vote.text }}</a></li>
           <td>
-            {% if user in vote.can_vote.all %}
+            {% if user.profile in vote.can_vote.all %}
               <span class="glyphicon glyphicon-ok"></span>
             {% else %}
               <span class="glyphicon glyphicon-remove"></span>
             {% endif %}
           </td>
           <td>
-            {% if user in vote.has_voted.all %}
+            {% if user.profile in vote.has_voted.all %}
               <span class="glyphicon glyphicon-ok"></span>
             {% else %}
               <span class="glyphicon glyphicon-remove"></span>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from infos.models import Profile
 from datetime import datetime
 from pytz import timezone
 from django.conf import settings
@@ -12,8 +13,8 @@ class Vote(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     text = models.TextField(max_length=400)
-    can_vote = models.ManyToManyField(User, related_name='can_vote_for', blank=True)
-    has_voted = models.ManyToManyField(User, related_name='voted_for', blank=True)
+    can_vote = models.ManyToManyField(Profile, related_name='can_vote_for', blank=True)
+    has_voted = models.ManyToManyField(Profile, related_name='voted_for', blank=True)
     pub_date = models.DateTimeField('date published', blank=True, default=datetime.now)
     end_date = models.DateTimeField('end date', blank=True, default=datetime.now)
     def __str__(self):
