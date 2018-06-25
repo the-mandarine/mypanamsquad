@@ -8,13 +8,21 @@
   </h1>
   <p class="lead">
   Bienvenue dans l'intranet de la Panam Squad. C'est un peu vide pour le moment
-  mais on travaille à remplir ce site de nouvelles fonctionnalités rapidement.<br />
-  <br />
+  mais nous travaillons à remplir ce site de nouvelles fonctionnalités rapidement.<br />
+  </p>
+{% if not user.profile.has_been_checked %}
+<div class="alert alert-warning" role="alert">
+  Certaines fonctionalités de ce site te sont encore inaccessibles car ton compte 
+  est en cours de validation par un·e administrateur·rice (sans doute 
+  <a class="" target="blank" href="https://www.facebook.com/la.mandale"><b>La Mandale</b></a>).<br />
+  N'hésite pas à le contacter si tu es bien membre de la Panam Squad.
+</div>
+{% endif %}
   <div class="list-group lead">
-      <a class="list-group-item list-group-item-action disabled"
-         href="#">
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'profile:profile' %}">
         <span class="glyphicon glyphicon-user">&nbsp;</span>
-        Edition du profil
+        Mon profil
       </a>
     {% if user.profile.has_been_checked %}
       <a class="list-group-item list-group-item-action"
@@ -44,11 +52,12 @@
   <div class="cover">
     <h1 class="cover-heading">
       <!--<span class="glyphicon glyphicon-alert">&nbsp;</span>-->
-      Compte inactif
+      Bienvenue !
     </h1>
     <p class="lead">
       Coucou {{ user.username }}!<br />
       <br />
+      
       Ton compte est en cours de validation par un·e administrateur·rice (sans doute 
       <a class="" target="blank" href="https://www.facebook.com/la.mandale"><b>La Mandale</b></a>).<br />
       N'hésite pas à le contacter si tu es bien membre de la Panam Squad.
