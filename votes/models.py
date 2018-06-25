@@ -34,7 +34,7 @@ class Vote(models.Model):
 class VoteItem(models.Model):
     vote = models.ForeignKey(Vote, on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
-    results = models.IntegerField(default=0, editable=True)
+    results = models.IntegerField(default=0, editable=False)
     def __str__(self):
         return self.text
 
