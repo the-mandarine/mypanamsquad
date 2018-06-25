@@ -12,10 +12,10 @@ class VoteItemInline(admin.TabularInline):
 class VoteAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['name', 'slug', 'text']}),
-        ('Members', {'fields': ['can_vote', 'has_voted']}),
+        ('Members', {'fields': ['can_vote', 'group_can_vote']}),
         ('Dates', {'fields': ['pub_date', 'end_date']}),
     ]
-    filter_horizontal = ('can_vote', 'has_voted')
+    filter_horizontal = ('can_vote', 'group_can_vote')
     inlines = [VoteItemInline]
     list_display = ('name', 'pub_date', 'end_date', 'get_vote_status',)
     list_filter = ['pub_date']

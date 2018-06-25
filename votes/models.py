@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from infos.models import Profile
+from infos.models import Profile, ProfileGroup
 from datetime import datetime
 from pytz import timezone
 from django.conf import settings
@@ -14,7 +14,8 @@ class Vote(models.Model):
     slug = models.SlugField(unique=True)
     text = models.TextField(max_length=400)
     can_vote = models.ManyToManyField(Profile, related_name='can_vote_for', blank=True)
-    has_voted = models.ManyToManyField(Profile, related_name='voted_for', blank=True)
+    group_can_vote = models.ManyToManyField(ProfileGroup, related_name='can_vote_for', blank=True)
+    has_voted = models.ManyToManyField(Profile, related_name='voted_for', blank=True, editable=False)
     pub_date = models.DateTimeField('date published', blank=True, default=datetime.now)
     end_date = models.DateTimeField('end date', blank=True, default=datetime.now)
     def __str__(self):
@@ -25,11 +26,18 @@ class Vote(models.Model):
         return self.end_date > now
 
     def get_vote_status(self):
-        return "%i/%i" % (self.has_voted.count(), self.can_vote.count())
+        return "%i/%i" % (self.has_voted.count(), len(self.get_voters()))
     get_vote_status.short_description = 'Vote status'
 
     def get_percent_voting(self):
-        return int(100 * self.has_voted.count() / self.can_vote.count())
+        return int(100 * self.has_voted.count() / len(self.get_voters()))
+
+    def get_voters(self):
+        voters = set(self.can_vote.all())
+        for profile_group in self.group_can_vote.all():
+            for profile in profile_group.profiles.all():
+                voters.add(profile)
+        return voters
 
 class VoteItem(models.Model):
     vote = models.ForeignKey(Vote, on_delete=models.CASCADE)

@@ -43,5 +43,8 @@ class ProfileGroup(models.Model):
     name = models.CharField(max_length=200)
     profiles = models.ManyToManyField(Profile)
 
+    def user_count(self):
+        return self.profiles.count()
+
     def __str__(self):
         return "%s (%s)" % (self.name, self.profiles.count())
