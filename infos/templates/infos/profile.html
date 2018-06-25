@@ -106,4 +106,12 @@
   {% endif %}
   </div>
 </div>
+{% if success_message %}
+<script>
+  function redirect(){
+     window.location.href = "/";
+  }
+  setTimeout(redirect, 3000);
+</script>
+{% endif %}
 {% endblock %}
