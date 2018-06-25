@@ -4,13 +4,14 @@
 {% block content %}
   <div class="cover">
   <h1 class="cover-heading">Hey, salut!</h1>
-  <p class="lead">
+  <div class="lead">
     Bienvenue sur l'intranet de la Panam Squad.
-  </p>
-  <p>
+  </div>
+  <div class="lead">
     <a
-      class="btn btn-info btn-lg col-sm-10 col-sm-offset-1"
+      class="btn btn-info btn-lg col-sm-8 col-sm-offset-2"
       style="font-size: 40px; line-height: 2em;"
       href="{% url 'social:begin' 'facebook' %}">Connecte-toi par Facebook</a>
-  </p>
+  <br /><br />
+  </div>
 {% endblock %}
