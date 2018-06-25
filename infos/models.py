@@ -29,16 +29,8 @@ class Profile(models.Model):
     city = models.CharField(max_length=50, blank=True)
     contact_phone = models.CharField(max_length=15, blank=True)
     contact_email = models.CharField(max_length=50, blank=True)
-    health_certif_date = models.DateField(blank=True, null=True)
-    health_certif = models.FileField(blank=True)
-    health_problems = models.TextField(blank=True)
 
     ffrs_status = models.CharField(max_length=8, choices=FFRS_CHOICES, default='PSquad')
-    # Engagements (to fill only once)
-    participate_confirmation = models.BooleanField(default = False)
-    conduct_confirmation = models.BooleanField(default = False)
-    exact_confirmation = models.BooleanField(default = False)
-    allow_confirmation = models.BooleanField(default = False)
 
     def is_full_member(self):
         return self.has_paid_dues and self.has_filled_profile
@@ -47,3 +39,9 @@ class Profile(models.Model):
     def __str__(self):
         return "%s (#%s)" % (self.derby_name, self.derby_number)
 
+class ProfileGroup(models.Model):
+    name = models.CharField(max_length=200)
+    profiles = models.ManyToManyField(Profile)
+
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.profiles.count())
