@@ -65,6 +65,10 @@
   {{ success_message }}
 </div>
 {% endif %}
+<div class="alert alert-info" role="alert">
+  Si tu souhaites modifier ton derby name, ton numéro ou ton nom d'usage, contacte un administrateur.
+</div>
+
   <form class="form-horizontal" action="{% url 'profile:edit' %}" method="post">
   <div class="form-group">
     <label class="control-label col-sm-4">Derby name:</label>
@@ -90,12 +94,14 @@
       </p>
     </div>
   </div>
+<!--
   {% csrf_token %}
   <div class="form-group">
     <div class="col-sm-offset-10 col-sm-10">
       <input type="submit" class="btn btn-info" value="Mettre à jour" />
     </div>
   </div>
+-->
   </form>
   {% endif %}
   </div>

@@ -54,6 +54,4 @@ def create(request):
 
 @login_required
 def edit(request):
-    selected = vote.voteitem_set.get(pk=request.POST['vote'])
-    selected.save()
-    return HttpResponseRedirect(reverse('provile:success'))
+    return HttpResponseRedirect(reverse('profile:success'))
