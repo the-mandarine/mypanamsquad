@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-  {% if user.profile  %}
   <div class="cover">
   <h1 class="cover-heading">
     <!--<span class="glyphicon glyphicon-sunglasses">&nbsp;</span>-->
@@ -48,24 +47,5 @@
       </a>
   </div>
   </p>
-  {% else %}
-  <div class="cover">
-    <h1 class="cover-heading">
-      <!--<span class="glyphicon glyphicon-alert">&nbsp;</span>-->
-      Bienvenue !
-    </h1>
-    <p class="lead">
-      Coucou {{ user.username }}!<br />
-      <br />
-      
-      Ton compte est en cours de validation par un·e administrateur·rice (sans doute 
-      <a class="" target="blank" href="https://www.facebook.com/la.mandale"><b>La Mandale</b></a>).<br />
-      N'hésite pas à le contacter si tu es bien membre de la Panam Squad.
-    </p>
-    <!--<p class="lead">
-      En attendant, n'hésites pas à remplir ton profil.
-    </p>-->
   </div>
-
-  {% endif %}
 {% endblock %}
