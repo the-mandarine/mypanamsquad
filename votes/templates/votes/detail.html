@@ -5,7 +5,7 @@
   <div class="lead">
     <span class="glyphicon glyphicon-time"></span>&nbsp;{{ vote.end_date }}.<br />
     <span class="glyphicon glyphicon-stats"></span>&nbsp;
-    {{ vote.has_voted.count }} ont voté sur {{ vote.can_vote.count }}.
+    {{ vote.has_voted.count }} ont voté sur {{ vote.get_voters_count }}.
   </div>
 {% if error_message %}
 <div class="alert alert-info" role="alert">

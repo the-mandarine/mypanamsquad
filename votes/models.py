@@ -39,6 +39,9 @@ class Vote(models.Model):
                 voters.add(profile)
         return voters
 
+    def get_voters_count(self):
+        return len(self.get_voters())
+
 class VoteItem(models.Model):
     vote = models.ForeignKey(Vote, on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
