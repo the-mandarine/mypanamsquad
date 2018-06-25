@@ -3,6 +3,11 @@
 <div class="cover">
   <h1 class="cover-heading">{{ vote.text }}</h1>
   <div class="lead">
+    <span class="glyphicon glyphicon-time"></span>&nbsp;{{ vote.end_date }}.<br />
+    <span class="glyphicon glyphicon-stats"></span>&nbsp;
+    {{ vote.has_voted.count }} ont voté sur {{ vote.can_vote.count }}.
+  </div>
+  <div class="lead">
 {% for item in vote.voteitem_set.all %}
     {{ item.text }}
     <div class="progress" style="width: 80%;">
