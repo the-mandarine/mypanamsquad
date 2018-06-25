@@ -24,17 +24,6 @@ class ProfileAdmin(admin.ModelAdmin):
                 'post_address',
                 'postal_code',
                 'city',
-                'exact_confirmation',
-        ]}),
-        ('Health', {'fields': [
-                'health_certif',
-                'health_certif_date',
-                'health_problems',
-        ]}),
-        ('Agreements', {'fields': [
-                'participate_confirmation',
-                'conduct_confirmation',
-                'allow_confirmation',
         ]}),
     ]
 #    filter_horizontal = ('derby_roles',)
