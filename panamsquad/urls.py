@@ -20,6 +20,8 @@ from core import views as core_views
 from votes import urls as votes_urls
 from infos import urls as infos_urls
 
+admin.site.site_header = 'Panam Squad Administration'
+
 urlpatterns = [
     url(r'^$', core_views.home, name='home'),
     url(r'^privacy/$', core_views.privacy, name='privacy'),
