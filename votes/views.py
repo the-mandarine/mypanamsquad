@@ -23,7 +23,7 @@ def has_been_checked(user):
 def index(request):
     user = request.user
     now = TZ.localize(datetime.now())
-    latest_votes = Vote.objects.filter(pub_date__lt=now)
+    latest_votes = Vote.objects.filter(pub_date__lt=now).order_by('-end_date')
     context = {'latest_votes': latest_votes}
     return render(request, 'votes/index.html', context)
 
