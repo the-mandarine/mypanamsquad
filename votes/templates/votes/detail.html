@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
   <div class="cover">
-  <h1 class="cover-heading">{{ vote.text }}</h1>
+  <h1 class="cover-heading">{{ vote.name }}</h1>
   <div class="lead">
     <span class="glyphicon glyphicon-time"></span>&nbsp;{{ vote.end_date }}.<br />
     <span class="glyphicon glyphicon-stats"></span>&nbsp;
@@ -13,6 +13,9 @@
 </div>
 {% endif %}
 
+<div class="lead">
+{{ vote.text }}
+</div>
   <div>
 {% if activated %}
 <form class="lead" action="{% url 'votes:vote' vote.slug %}" method="post">

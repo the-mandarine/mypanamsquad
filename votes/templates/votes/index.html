@@ -34,7 +34,7 @@
               <span class="glyphicon glyphicon-folder-close">&nbsp;</span>{{ vote.end_date }}
             {% endif %}
           </td>
-          <td><a href="{% url 'votes:detail' vote.slug %}">{{ vote.text }}</a></li>
+          <td><a href="{% url 'votes:detail' vote.slug %}" title="{{ vote.text }}">{{ vote.name }}</a></li>
           <td>
             {% if user.profile in vote.get_voters %}
               <span class="glyphicon glyphicon-ok"></span>
