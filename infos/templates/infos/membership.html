@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <div class="lead">
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-user">&nbsp;</span>-->
+    Mon bulletin d'adhésion
+  </h1>
+{% if error_message %}
+<div class="alert alert-danger" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+{% if success_message %}
+<div class="alert alert-success" role="alert">
+  {{ success_message }}
+</div>
+{% endif %}
+
+<div>
+{% if not user.profile.member or not user.profile.member.submitted %}
+  <form class="form-horizontal" action="{% url 'profile:subscribe' %}" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="derby_name" class="control-label">
+      Derby name :
+    </label>
+    <input type="text" class="form-control"
+      value="{{ user.profile.derby_name }}"
+      id="derby_name" name="derby_name" disabled />
+    <label for="derby_number" class="control-label">
+      Derby number :
+    </label>
+    <input type="text" class="form-control"
+      value="{{ user.profile.derby_number }}"
+      id="derby_number" name="derby_number" disabled />
+  </div>
+  <div class="form-group">
+    <label for="real_name" class="control-label">
+      Nom d'usage :
+    </label>
+    <input type="text" class="form-control"
+      id="real_name" name="real_name"
+      value="{{ user.profile.member.real_name }}"
+      placeholder="Prénom Nom" />
+    <label for="birth_date" class="control-label">
+      Date de naissance :
+    </label>
+    <input type="date" class="form-control"
+      id="birth_date" name="birth_date"
+      value="{{ user.profile.member.birth_date_short }}" />
+  </div>
+
+  <hr />
+  <div class="form-group">
+    <label for="post_address" class="control-label">
+      Adresse :
+    </label>
+    <input type="text" class="form-control"
+      id="post_address" name="post_address"
+      value="{{ user.profile.member.post_address }}" />
+    <label for="postal_code" class="control-label">
+      Code postal :
+    </label>
+    <input type="text" class="form-control"
+      id="postal_code" name="postal_code"
+      value="{{ user.profile.member.postal_code }}" />
+    <label for="city" class="control-label">
+      Ville :
+    </label>
+    <input type="text" class="form-control"
+      id="city" name="city"
+      value="{{ user.profile.member.city }}" />
+  </div>
+
+  <hr />
+  <div class="form-group">
+    <label for="contact_phone" class="control-label">
+      Numéro de téléphone :
+    </label>
+    <input type="tel" class="form-control"
+      id="contact_phone" name="contact_phone"
+      value="{{ user.profile.member.contact_phone }}" />
+    <label for="contact_email" class="control-label">
+      Email :
+    </label>
+    <input type="email" class="form-control"
+      id="contact_email" name="contact_email"
+      value="{{ user.profile.member.contact_email }}" />
+  </div>
+
+  <hr />
+  <div class="form-group">
+    <label class="control-label">Rôle principal au sein de la Panam Squad : </label>
+    <p><small>
+      Description des rôles
+    </small></p>
+    {% for role_slug,role_desc in roles %}
+    <div class="radio">
+      <label><input type="radio" name="role"
+      {% if user.profile.member.role == role_slug %}
+      value="{{ role_slug }}" checked />{{ role_desc }}</label>
+      {% else %}
+      value="{{ role_slug }}" />{{ role_desc }}</label>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <hr />
+  <div class="form-group">
+    <label class="control-label">License FFRS :</label>
+    <p><small>
+      Précisions sur les licenses
+    </small></p>
+
+    {% for ffrs_slug,ffrs_desc in ffrs %}
+    <div class="radio">
+      <label><input type="radio" name="ffrs_status"
+      {% if user.profile.member.ffrs_status == ffrs_slug %}
+      value="{{ ffrs_slug }}" checked />{{ ffrs_desc }}</label>
+      {% else %}
+      value="{{ ffrs_slug }}" />{{ ffrs_desc }}</label>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <hr />
+  <div class="form-check">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox"
+    name="data_ok" value="yes" />
+    <small>
+    Je certifie que ces informations sont exactes et je consens à ce qu'elles
+    soient utilisées afin de gérer mon adhésion à la Panam Squad. Elles 
+    pourront être transmises à la FFRS dans le cas de l'acquisition d'une 
+    license en mon nom. 
+    </small>
+  </label>
+  </div>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <input type="submit" name="save" class="btn btn-lg btn-default"
+       value="Sauvegarder" />
+      <input type="submit" name="submit" class="btn btn-lg btn-success"
+       value="Envoyer mon dossier" />
+    </div>
+  </div>
+  </form>
+</div>
+{% else %}
+<div class="alert alert-info" role="alert">
+Ton bulletin d'adhésion est en cours de traitement. <br />
+Contacte un·e administrateur·rice si tu souhaites pouvoir le modifier.
+</div>
+{% if not user.profile.member.has_paid %}
+<div class="alert alert-warning" role="alert">
+Il te reste {{ user.profile.member.subscription_dues }}€ à verser à la
+Panam Squad. <br />
+Un RIB est dispo : <a href="#">ICI</a>.
+</div>
+{% endif %}
+{% endif %}
+  </div>
+</div>
+{% if success_message %}
+<script>
+  function redirect(){
+     window.location.href = "/";
+  }
+  setTimeout(redirect, 5000);
+</script>
+{% endif %}
+{% endblock %}
