@@ -3,31 +3,11 @@
 from __future__ import unicode_literals
 from django.contrib import admin
 from django.db import models
-from infos.models import Profile, ProfileGroup
+from infos.models import Profile, ProfileGroup, Member
 
 class ProfileAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['user', 'has_been_checked']}),
-        ('Administrative', {'fields': [
-            'has_paid_dues',
-            'has_filled_profile',
-        ]}),
-        ('Derby status', {'fields': [
-            'derby_name',
-            'derby_number',
-        ]}),
-        ('Personal informations', {'fields': [
-                'real_name',
-                'birth_date',
-                'contact_email',
-                'contact_phone',
-                'post_address',
-                'postal_code',
-                'city',
-        ]}),
-    ]
 #    filter_horizontal = ('derby_roles',)
-    list_display = ('derby_name', 'derby_number', 'has_been_checked', 'is_full_member',)
+    list_display = ('derby_name', 'derby_number', 'has_been_checked',)
 
 class ProfileGroupAdmin(admin.ModelAdmin):
     filter_horizontal = ('profiles',)
@@ -35,4 +15,6 @@ class ProfileGroupAdmin(admin.ModelAdmin):
 
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(ProfileGroup, ProfileGroupAdmin)
+
+admin.site.register(Member)
 

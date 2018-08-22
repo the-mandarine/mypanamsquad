@@ -20,6 +20,9 @@
 
   <form class="form-horizontal" action="{% url 'profile:create' %}" method="post">
   {% csrf_token %}
+  <small>
+    Oui
+  </small>
   <div class="form-group">
     <label for="derby_name" class="control-label">
       Derby name:
@@ -35,14 +38,6 @@
     <input type="text" class="form-control"
       value="{{ user.profile.derby_number }}"
       id="derby_number" name="derby_number"/>
-  </div>
-  <div class="form-group">
-    <label for="real_name" class="control-label">
-      Nom d'usage:
-    </label>
-    <input type="text" class="form-control"
-      id="real_name" name="real_name"
-      placeholder="Prénom Nom" />
   </div>
   <div class="form-group row">
     <div class="col-md-2 col-md-offset-5">
@@ -66,7 +61,7 @@
 </div>
 {% endif %}
 <div class="alert alert-info" role="alert">
-  Si tu souhaites modifier ton derby name, ton numéro ou ton nom d'usage, contacte un·e administrateur·rice.
+  Si tu souhaites modifier ton derby name ou ton numéro, contacte un·e administrateur·rice.
 </div>
 
   <form class="form-horizontal" action="{% url 'profile:edit' %}" method="post">
@@ -83,14 +78,6 @@
     <div class="col-sm-8">
       <p class="form-control-static">
         {{ user.profile.derby_number }}
-      </p>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-4">Nom d'usage:</label>
-    <div class="col-sm-8">
-      <p class="form-control-static">
-        {{ user.profile.real_name }}
       </p>
     </div>
   </div>

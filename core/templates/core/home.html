@@ -18,11 +18,26 @@
 </div>
 {% endif %}
   <div class="list-group lead">
-      <a class="list-group-item list-group-item-action"
-         href="{% url 'profile:profile' %}">
-        <span class="glyphicon glyphicon-user">&nbsp;</span>
-        Mon profil
+    {% if not user.profile.member or not user.profile.member.has_been_processed %}
+      {% if not user.profile.member.has_paid %}
+        {% if not user.profile.member.submitted %}
+          <a class="list-group-item list-group-item-action list-group-item-info"
+             href="{% url 'profile:membership' %}">
+        {% else %}
+          <a class="list-group-item list-group-item-action list-group-item-danger"
+             href="{% url 'profile:membership' %}">
+        {% endif %}
+      {% else %}
+      <a class="list-group-item list-group-item-action list-group-item-success"
+         href="{% url 'profile:membership' %}">
+      {% endif %}
+        <span class="glyphicon glyphicon-leaf">&nbsp;</span>
+        Adhésion
+        {% if user.profile.member and user.profile.member.submitted and not user.profile.member.has_paid %}
+          ({{ user.profile.member.subscription_dues }}€)
+        {% endif %}
       </a>
+    {% endif %}
     {% if user.profile.has_been_checked %}
       <a class="list-group-item list-group-item-action"
          href="{% url 'votes:index' %}">
