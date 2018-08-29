@@ -20,12 +20,9 @@
 
   <form class="form-horizontal" action="{% url 'profile:create' %}" method="post">
   {% csrf_token %}
-  <small>
-    Oui
-  </small>
   <div class="form-group">
     <label for="derby_name" class="control-label">
-      Derby name:
+      Derby name :
     </label>
     <input type="text" class="form-control"
       value="{{ user.profile.derby_name }}"

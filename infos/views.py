@@ -53,7 +53,7 @@ def create(request):
         derby_number = '____'
 
     if not all((derby_name, derby_number,)):
-        error_msg = "Tous les champs sont obligatoires."
+        error_msg = "Il est nécessaire de renseigner un derby name."
         return render(request, 'infos/profile.html', {'error_message': error_msg})
 
     profile = Profile()
