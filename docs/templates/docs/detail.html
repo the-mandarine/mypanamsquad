@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="cover">
+  <h1 class="cover-heading">{{ doc.name }}</h1>
+  <div class="lead">
+    <span class="glyphicon glyphicon-stats"></span>&nbsp;
+    {{ doc.asset.size|filesizeformat }}
+  </div>
+  <div class="lead">
+    <span class="glyphicon glyphicon-file"></span>&nbsp;
+    <a href="/{{ doc.asset.url }}">Accéder à {{doc.name}}</a>
+  </div>
+  
+  </div>
+{% endblock %}

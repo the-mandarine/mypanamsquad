@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-bullhorn">&nbsp;</span>-->
+    Docs
+  </h1>
+  <div class="lead">
+{% if docs %}
+    <table class="table lead">
+    <thead>
+    <tr>
+      <th>Type</th>
+      <th>Fichier</th>
+      <th>Taille</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for doc in docs %}
+        <tr>
+          <td>
+            <span class="glyphicon glyphicon-file">&nbsp;</span>
+          </td>
+          <td>
+            <a href="/{{ doc.asset.url }}" target="_blank">{{ doc.name }}</a></li>
+          <td>
+            {{ doc.asset.size|filesizeformat }}
+          </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% else %}
+    Pas de fichier disponible
+{% endif %}
+  </div>
+</div>
+{% endblock %}
