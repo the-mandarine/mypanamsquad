@@ -69,8 +69,13 @@ class Member(models.Model):
         _, extension = os.path.splitext(self.health_cert.name)
         return cert_name+extension
 
-    def __str__(self):
+    def display_name(self):
         return "%s (#%s)" % (self.profile.derby_name, self.profile.derby_number)
+
+    display_name.short_description = 'Profile'
+
+    def __str__(self):
+        return self.display_name()
 
 
 class ProfileGroup(models.Model):

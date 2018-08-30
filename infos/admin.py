@@ -13,8 +13,12 @@ class ProfileGroupAdmin(admin.ModelAdmin):
     filter_horizontal = ('profiles',)
     list_display = ('name', 'user_count',)
 
+class MemberAdmin(admin.ModelAdmin):
+#    filter_horizontal = ('derby_roles',)
+    list_display = ('display_name', 'has_paid', 'validated',)
+
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(ProfileGroup, ProfileGroupAdmin)
 
-admin.site.register(Member)
+admin.site.register(Member, MemberAdmin)
 
