@@ -86,6 +86,7 @@ def subscribe(request):
     submit = bool(request.POST.get('submit', False))
     data_ok = bool(request.POST.get('data_ok', False))
     health_cert = request.FILES.get('health_cert', None)
+    keep_health_cert = bool(request.POST.get('keep_health_cert', False))
     try:
         member = Member.objects.get(profile=request.user.profile)
     except:
@@ -103,6 +104,7 @@ def subscribe(request):
     member.ffrs_status = ffrs_status
     if health_cert:
         member.health_cert = health_cert
+    member.keep_health_cert = keep_health_cert
     member.save()
 
     if submit:

@@ -156,12 +156,29 @@
       Le cas échéant, ne soumet pas ton adhésion avant d'avoir vérifié
       que ton certificat est bien valide.
     </small></p>
+    <center>
     <label>
       <input type=file name="health_cert" class="form-control-file" />
-      {% if user.profile.member.health_cert %}
-        <small><a href="{% url "profile:health_cert_redir" %}">
-          certificat actuel</a></small>
+    </label>
+    {% if user.profile.member.health_cert %}
+    <p>
+      <a href="{% url "profile:health_cert_redir" %}">
+        certificat actuel</a>
+    </p>
+    {% endif %}
+    </center>
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox"
+      {% if user.profile.member.keep_health_cert %}
+        name="keep_health_cert" value="yes" checked />
+      {% else %}
+        name="keep_health_cert" value="yes" />
       {% endif %}
+      <small>
+        En cochant cette case, j'autorise la Panam Squad à conserver et
+        archiver mon certificat médical pour préparer mon éventuel
+        bulletin d'adhésion de la saison prochaine.
+      </small>
     </label>
   </div>
   <hr />
@@ -213,9 +230,9 @@ par chèque à l'ordre de la Panam Squad.
 {% if success_message %}
 <script>
   function redirect(){
-     window.location.href = "/";
+     window.location.href = "{% url 'profile:membership' %}";
   }
-  setTimeout(redirect, 5000);
+  setTimeout(redirect, 1000);
 </script>
 {% endif %}
 {% endblock %}
