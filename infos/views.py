@@ -15,6 +15,14 @@ def has_been_checked(user):
         valid = False
     return valid
 
+def has_membership(user):
+    valid = False
+    try:
+        valid = bool(user.profile.member)
+    except:
+        valid = False
+    return valid
+
 @login_required
 def profile(request):
     """Edit my profile"""
@@ -77,6 +85,7 @@ def subscribe(request):
     save = bool(request.POST.get('save', False))
     submit = bool(request.POST.get('submit', False))
     data_ok = bool(request.POST.get('data_ok', False))
+    health_cert = request.FILES.get('health_cert', None)
     try:
         member = Member.objects.get(profile=request.user.profile)
     except:
@@ -92,6 +101,8 @@ def subscribe(request):
     member.contact_email = contact_email
     member.role = role
     member.ffrs_status = ffrs_status
+    if health_cert:
+        member.health_cert = health_cert
     member.save()
 
     if submit:
@@ -111,3 +122,18 @@ def subscribe(request):
 @login_required
 def edit(request):
     return HttpResponseRedirect(reverse('profile:success'))
+
+@user_passes_test(has_membership, login_url='/')
+def health_cert_redir(request):
+    member = request.user.profile.member
+    if member.health_cert:
+        cert_url = member.health_cert_url()
+        return HttpResponseRedirect(reverse('profile:health_cert', args=(cert_url,)))
+    return HttpResponseRedirect(reverse('profile:profile'))
+
+@user_passes_test(has_been_checked, login_url='/')
+def health_cert(request, filename):
+    user = request.user
+    cert_file = user.profile.member.health_cert
+    return HttpResponse(cert_file.read(), content_type='application/octet-stream')
+    

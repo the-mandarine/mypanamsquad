@@ -19,7 +19,7 @@
 
 <div>
 {% if not user.profile.member or not user.profile.member.submitted %}
-  <form class="form-horizontal" action="{% url 'profile:subscribe' %}" method="post">
+  <form class="form-horizontal" action="{% url 'profile:subscribe' %}" method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-group">
     <label for="derby_name" class="control-label">
@@ -93,7 +93,12 @@
   <div class="form-group">
     <label class="control-label">Rôle principal au sein de la Panam Squad : </label>
     <p><small>
-      Description des rôles
+    Ton rôle au sein de la Panam Squad détermine le montant de ton adhésion
+    et tes accès à certaines ressources. <br />
+    </small></p>
+    <p class="alert alert-info"><small>
+    Pour la saison 2018/2019, le montant de l'adhésion en tant que joueur·euse
+    s'élève à <b>75€</b> pour l'année.
     </small></p>
     {% for role_slug,role_desc in roles %}
     <div class="radio">
@@ -111,7 +116,18 @@
   <div class="form-group">
     <label class="control-label">License FFRS :</label>
     <p><small>
-      Précisions sur les licenses
+      <a href="http://ffroller.fr/wp-content/uploads/CLU_Lic_002-1.pdf">
+        La license FFRS évolue</a>.<br />
+      Nous ne savons pas encore précisément comment se présentent les 
+      inscriptions à la FFRS, cette saison. Dans le doute, nous te proposons
+      les mêmes alternatives que l'année dernière.
+      Si tu es absolument certain·e de ne pas patiner/rouler cette année,
+      même en randonnée, mais que tu souhaites pouvoir officier sur des 
+      matchs, une license "non-pratiquant" t'es nécessaire.<br />
+    </small></p>
+    <p class="alert alert-info"><small>
+      Le prix de la license FFRS, qu'elle soit avec ou sans patins s'élève
+      à <b>35€</b>.  
     </small></p>
 
     {% for ffrs_slug,ffrs_desc in ffrs %}
@@ -126,6 +142,24 @@
     {% endfor %}
   </div>
 
+  <div class="form-group">
+    <label class="control-label">Certficat médical :</label>
+    <p><small>
+       Si tu souhaites que la Panam Squad gère pour toi une license "avec
+       patins", merci de transmettre un certificat médical en cours de
+       validité permettant "la pratique du Roller Derby
+       <b>en compétition</b>".<br />
+       Si tu as fourni un certificat valide pour la saison 2017/2018, tu peux
+       demander à La Mandale de l'utiliser pour ton dossier d'inscription.
+    </small></p>
+    <label>
+      <input type=file name="health_cert" class="form-control-file" />
+      {% if user.profile.member.health_cert %}
+        <small><a href="{% url "profile:health_cert_redir" %}">
+          certificat actuel</a></small>
+      {% endif %}
+    </label>
+  </div>
   <hr />
   <div class="form-check">
   <label class="form-check-label">
@@ -158,7 +192,7 @@ Contacte un·e administrateur·rice si tu souhaites pouvoir le modifier.
 <div class="alert alert-warning" role="alert">
 Il te reste {{ user.profile.member.subscription_dues }}€ à verser à la
 Panam Squad. <br />
-Un RIB est dispo : <a href="#">ICI</a>.
+Un RIB est dispo : <a href="{% url 'docs:redir' 'iban' %}">ICI</a>.
 </div>
 {% endif %}
 {% endif %}
