@@ -12,6 +12,7 @@ class Doc(models.Model):
                  ("V", "video"),
                 )
     name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
     doc_type = models.CharField(max_length=1, choices = DOC_TYPE_CHOICES)
     asset = models.FileField(upload_to='uploads/%Y/%m/%d/')
 
