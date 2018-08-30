@@ -196,7 +196,28 @@ Contacte un·e administrateur·rice si tu souhaites pouvoir le modifier.
 <div class="alert alert-warning" role="alert">
 Il te reste {{ user.profile.member.subscription_dues }}€ à verser à la
 Panam Squad. <br />
-Un RIB est dispo : <a href="{% url 'docs:redir' 'iban' %}">ICI</a>.
+Il est possible que ce traitement soit en cours de notre côté.<br />
+N'hésite pas à contacter la trésorerie
+(<a href="https://www.facebook.com/ClassicColvert">Colvert</a> ou
+<a href="https://www.facebook.com/nicolas.mowgli">Mowgli</a>) si tu as une question.<br />
+<center>
+<a class="btn btn-default" href="{% url 'docs:redir' 'iban' %}">Payer par virement</a>
+<br />ou<br />
+<form class="form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+{% if user.profile.member.subscription_dues == 35 %}
+<input type="hidden" name="hosted_button_id" value="GJYQJJ8FEADKJ">
+{% elif user.profile.member.subscription_dues == 75  %}
+<input type="hidden" name="hosted_button_id" value="V5XP9676GQ9W8">
+{% elif user.profile.member.subscription_dues == 110 %}
+<input type="hidden" name="hosted_button_id" value="AKC9C4MJW63RN">
+{% else %}
+<input type="hidden" name="hosted_button_id" value="47EKLLRQM57ZG">
+{% endif %}
+<input type="image" src="/static/imgs/payez.png" border="0" width="160" name="submit" alt="PayPal, le réflexe sécurité pour payer en ligne">
+<img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+</form>
+</center>
 </div>
 {% endif %}
 {% endif %}
