@@ -112,6 +112,9 @@ def subscribe(request):
         if not data_ok:
             error_msg = "Il faut accepter que la Panam Squad utilise les informations fournies pour adhérer."
             return membership(request, err=error_msg)
+        if member.ffrs_status in ('PComp',) and not member.health_cert:
+            error_msg = "Il te faut avoir un certificat médical dans ton dossier pour acquérir ce type de license FFRS."
+            return membership(request, err=error_msg)
         member.submitted = True
         member.save()
         msg = "Merci d'avoir transmis ton dossier."
@@ -138,4 +141,4 @@ def health_cert(request, filename):
     user = request.user
     cert_file = user.profile.member.health_cert
     return HttpResponse(cert_file.read(), content_type='application/octet-stream')
-    
+
