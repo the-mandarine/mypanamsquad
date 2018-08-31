@@ -53,7 +53,11 @@ class Member(models.Model):
     keep_health_cert = models.BooleanField(default=False)
 
     def birth_date_short(self):
-        return self.birth_date.strftime('%Y-%m-%d')
+        try:
+            value = self.birth_date.strftime('%Y-%m-%d')
+        except:
+            value = ""
+        return value
 
     def subscription_dues(self):
         dues = 0
