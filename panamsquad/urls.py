@@ -20,7 +20,7 @@ from core import views as core_views
 from votes import urls as votes_urls
 from docs import urls as docs_urls
 from infos import urls as infos_urls
-from derby import urls as derby_urls
+#from derby import urls as derby_urls
 
 admin.site.site_header = 'Panam Squad Administration'
 
@@ -35,5 +35,5 @@ urlpatterns = [
     url(r'^votes/', include(votes_urls)),
     url(r'^docs/', include(docs_urls)),
     url(r'^profile/', include(infos_urls)),
-    url(r'^derby/', include(derby_urls)),
+#    url(r'^derby/', include(derby_urls)),
 ]
