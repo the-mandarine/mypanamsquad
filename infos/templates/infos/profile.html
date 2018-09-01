@@ -18,6 +18,10 @@
 </div>
 {% endif %}
 
+<div class="alert alert-warning" role="alert">
+  La création d'un profil sur l'intranet Panam Squad ne constitue pas une
+  adhésion.
+</div>
   <form class="form-horizontal" action="{% url 'profile:create' %}" method="post">
   {% csrf_token %}
   <div class="form-group">
