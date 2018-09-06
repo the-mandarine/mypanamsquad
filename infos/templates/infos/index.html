@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <div class="lead">
+  <h1 class="cover-heading">
+    Liste des {{filter_name}}
+  </h1>
+{% if error_message %}
+<div class="alert alert-danger" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+{% if success_message %}
+<div class="alert alert-success" role="alert">
+  {{ success_message }}
+</div>
+{% endif %}
+<div>
+  <table class="table">
+  <thead>
+    <th scope="col">#</th>
+    <th scope="col">Derby name</th>
+    <th scope="col">Role principal</th>
+  </thead>
+  <tbody>
+{% for member in members %}
+  <tr class="">
+    <td>{{ member.profile.derby_number }}</td>
+    <td>{{ member.profile.derby_name }}</td> 
+    <td>{{ member.role }}</td> 
+  </tr>
+{% endfor %}
+  </tbody>
+  </table>
+</div>
+{% endblock %}

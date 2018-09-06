@@ -47,6 +47,10 @@ def success(request):
     context = {'success_message': success_msg}
     return render(request, 'infos/profile.html', context)
 
+def index(request):
+    members = Member.objects.filter(submitted=True).order_by('role')
+    return render(request, 'infos/index.html', {'members': members, 'filter_name': "adhérents"})
+
 @user_passes_test(has_been_checked, login_url='/')
 def teammate(request, derby_number):
     """Check my teammate's profile"""
@@ -141,4 +145,11 @@ def health_cert(request, filename):
     user = request.user
     cert_file = user.profile.member.health_cert
     return HttpResponse(cert_file.read(), content_type='application/octet-stream')
+
+def validate_payments(request):
+    pass
+
+def payments(request):
+    submitted_members = Member.objects.filter(submitted=True)
+    return render(request, 'infos/payments.html', {'submitted_members': submitted_members})
 
