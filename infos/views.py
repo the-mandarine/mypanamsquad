@@ -23,6 +23,12 @@ def has_membership(user):
         valid = False
     return valid
 
+def is_treasurer(user):
+    valid = False
+    #TODO
+    return valid
+    
+
 @login_required
 def profile(request):
     """Edit my profile"""
@@ -47,6 +53,7 @@ def success(request):
     context = {'success_message': success_msg}
     return render(request, 'infos/profile.html', context)
 
+@user_passes_test(has_been_checked, login_url='/')
 def index(request):
     members = Member.objects.filter(submitted=True).order_by('role')
     return render(request, 'infos/index.html', {'members': members, 'filter_name': "adhérents"})
@@ -149,6 +156,7 @@ def health_cert(request, filename):
 def validate_payments(request):
     pass
 
+@user_passes_test(has_been_checked, login_url='/')
 def payments(request):
     submitted_members = Member.objects.filter(submitted=True)
     return render(request, 'infos/payments.html', {'submitted_members': submitted_members})
