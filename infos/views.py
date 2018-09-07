@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 
-from infos.models import Profile, Member
+from infos.models import Profile, ProfileGroup, Member
 from datetime import datetime
 from django.conf import settings
 
@@ -23,9 +23,15 @@ def has_membership(user):
         valid = False
     return valid
 
-def is_treasurer(user):
+def _can_validate_paid(user):
     valid = False
-    #TODO
+    group = ProfileGroup.objects.get(name='_can_validate_paid')
+    usergroups = []
+    try:
+        usergroups = user.profile.profilegroup_set.all()
+        valid = group in usergroups
+    except:
+        valid = False
     return valid
     
 
@@ -153,10 +159,24 @@ def health_cert(request, filename):
     cert_file = user.profile.member.health_cert
     return HttpResponse(cert_file.read(), content_type='application/octet-stream')
 
+@user_passes_test(_can_validate_paid, login_url='/')
 def validate_payments(request):
-    pass
+    for post_var in request.POST.keys():
+        if post_var.startswith('paid_'):
+            member_id = post_var[5:]
+            member = Member.objects.get(id=member_id)
+            print (member, repr(request.POST[post_var]))
+            if request.POST[post_var] == 'Y':
+                member.has_paid = True
+            elif request.POST[post_var] == 'N':
+                member.has_paid = False
+            member.save()
+    submitted_members = Member.objects.filter(submitted=True)
+    msg = "Les paiements ont été enregistrés."
+    context = {'submitted_members': submitted_members, 'success_message': msg}
+    return render(request, 'infos/payments.html', context)
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(_can_validate_paid, login_url='/')
 def payments(request):
     submitted_members = Member.objects.filter(submitted=True)
     return render(request, 'infos/payments.html', {'submitted_members': submitted_members})

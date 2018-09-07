@@ -28,6 +28,7 @@
   </thead>
   <tbody>
 {% for member in submitted_members %}
+{% if member.subscription_dues > 0 %}
   <tr class="">
     <td>{{ member.profile.derby_number }}</td>
     <td>{{ member.profile.derby_name }}</td> 
@@ -36,25 +37,34 @@
     <td class="btn-group btn-group-toggle" data-toggle="buttons">
     {% if not member.has_paid %}
       <label class="btn btn-default active">
-      <input type="radio" name="{{ member.profile.derby_name }}" value="non" autocomplete="off" checked>non
+      <input type="radio" name="paid_{{member.id}}" value="N" autocomplete="off" checked />non
       </label>
       <label class="btn btn-default">
-      <input type="radio" name="{{ member.profile.derby_name }}" value="oui" autocomplete="off">oui
+      <input type="radio" name="paid_{{member.id}}" value="Y" autocomplete="off">oui
       </label>
     {% else %}
       <label class="btn btn-default">
-      <input type="radio" name="{{ member.profile.derby_name }}" value="non" autocomplete="off">non
+      <input type="radio" name="paid_{{member.id}}" value="N" autocomplete="off">non
       </label>
       <label class="btn btn-default active">
-      <input type="radio" name="{{ member.profile.derby_name }}" value="oui" autocomplete="off" checked>oui
+      <input type="radio" name="paid_{{member.id}}" value="Y" autocomplete="off" checked />oui
       </label>
     {% endif %}
     </td> 
   </tr>
+{% endif %}
 {% endfor %}
   </tbody>
   </table>
   <input type="submit" class="btn btn-lg btn-info" value="Valider les paiements" />
   </form>
 </div>
+{% if success_message %}
+<script>
+  function redirect(){
+     window.location.href = "{% url 'profile:payments' %}";
+  }
+  setTimeout(redirect, 1000);
+</script>
+{% endif %}
 {% endblock %}
