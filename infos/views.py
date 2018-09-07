@@ -178,6 +178,6 @@ def validate_payments(request):
 
 @user_passes_test(_can_validate_paid, login_url='/')
 def payments(request):
-    submitted_members = Member.objects.filter(submitted=True)
+    submitted_members = Member.objects.filter(submitted=True).order_by('derby_name')
     return render(request, 'infos/payments.html', {'submitted_members': submitted_members})
 
