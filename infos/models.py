@@ -22,10 +22,10 @@ class Profile(models.Model):
         return "%s (#%s)" % (self.derby_name, self.derby_number)
 
 class Member(models.Model):
-    FFRS_CHOICES = (('PComp', 'License "en patins" par la Panam Squad'),
-                    ('PFoot', 'License "non-pratiquant" par la Panam Squad'),
-                    ('OBorr', 'License par un autre club (prêt)'),
-                    ('NoLic', "Je n'ai pas besoin de license FFRS"))
+    FFRS_CHOICES = (('PComp', 'Licence "en patins" par la Panam Squad'),
+                    ('PFoot', 'Licence "non-pratiquant" par la Panam Squad'),
+                    ('OBorr', 'Licence par un autre club (prêt)'),
+                    ('NoLic', "Je n'ai pas besoin de licence FFRS"))
 
     ROLE_CHOICES = (('P', 'Jouer'),
                     ('O', 'Officier/Arbitrer'),
