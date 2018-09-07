@@ -13,7 +13,9 @@ def home(request):
         profile = request.user.profile
     except:
         return HttpResponseRedirect(reverse('profile:profile'))
-    return render(request, 'core/home.html')
+    can_validate_paid = profile.profilegroup_set.filter(name='_can_validate_paid').exists()
+    context = {'can_validate_paid': can_validate_paid}
+    return render(request, 'core/home.html', context)
 
 def privacy(request):
     return render(request, 'core/privacy.html')

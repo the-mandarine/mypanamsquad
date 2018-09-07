@@ -11,6 +11,7 @@ import os
 class Player(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     photo = models.FileField(upload_to='uploads/photos', blank=True)
+    photo2 = models.FileField(upload_to='uploads/photos', blank=True)
 
     def __str__(self):
         return "#%s %s" % (self.profile.derby_number, self.profile.derby_name)

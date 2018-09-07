@@ -171,13 +171,13 @@ def validate_payments(request):
             elif request.POST[post_var] == 'N':
                 member.has_paid = False
             member.save()
-    submitted_members = Member.objects.filter(submitted=True)
+    submitted_members = Member.objects.filter(submitted=True).order_by('profile__derby_name')
     msg = "Les paiements ont été enregistrés."
     context = {'submitted_members': submitted_members, 'success_message': msg}
     return render(request, 'infos/payments.html', context)
 
 @user_passes_test(_can_validate_paid, login_url='/')
 def payments(request):
-    submitted_members = Member.objects.filter(submitted=True).order_by('derby_name')
+    submitted_members = Member.objects.filter(submitted=True).order_by('profile__derby_name')
     return render(request, 'infos/payments.html', {'submitted_members': submitted_members})
 
