@@ -34,19 +34,19 @@
     <td>{{ member.profile.derby_name }}</td> 
     <td>{{ member.real_name }}</td> 
     <td>{{ member.subscription_dues }}€</td> 
-    <td class="btn-group btn-group-toggle" data-toggle="buttons">
+    <td class="" data-toggle="">
     {% if not member.has_paid %}
-      <label class="btn btn-default active">
+      <label class="active">
       <input type="radio" name="paid_{{member.id}}" value="N" autocomplete="off" checked />non
       </label>
-      <label class="btn btn-default">
+      <label class="">
       <input type="radio" name="paid_{{member.id}}" value="Y" autocomplete="off">oui
       </label>
     {% else %}
-      <label class="btn btn-default">
+      <label class="">
       <input type="radio" name="paid_{{member.id}}" value="N" autocomplete="off">non
       </label>
-      <label class="btn btn-default active">
+      <label class="active">
       <input type="radio" name="paid_{{member.id}}" value="Y" autocomplete="off" checked />oui
       </label>
     {% endif %}
