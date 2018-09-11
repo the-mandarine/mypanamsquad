@@ -28,7 +28,7 @@
   </thead>
   <tbody>
 {% for member in submitted_members %}
-{% if member.subscription_dues > 0 %}
+{% if member.subscription_dues >= 0 %}
   <tr class="">
     <td>{{ member.profile.derby_number }}</td>
     <td>{{ member.profile.derby_name }}</td> 
