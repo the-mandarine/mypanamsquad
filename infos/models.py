@@ -17,6 +17,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     derby_name = models.CharField(max_length=200)
     derby_number = models.CharField(max_length=5, blank=True)
+    fb_id = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return "%s (#%s)" % (self.derby_name, self.derby_number)
