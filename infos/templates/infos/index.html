@@ -21,6 +21,7 @@
     <th scope="col">#</th>
     <th scope="col">Derby name</th>
     <th scope="col">Role principal</th>
+    <th scope="col">Lien Facebook</th>
   </thead>
   <tbody>
 {% for member in members %}
@@ -28,6 +29,13 @@
     <td>{{ member.profile.derby_number }}</td>
     <td>{{ member.profile.derby_name }}</td> 
     <td>{{ member.role }}</td> 
+    <td>
+{% if member.profile.fb_id %}
+    <a href="https://www.facebook.com/{{ member.profile.fb_id }}" target="_blank">
+      <span class="glyphicon glyphicon-pushpin"></span>
+    </a>
+{% endif %}
+    </td> 
   </tr>
 {% endfor %}
   </tbody>
