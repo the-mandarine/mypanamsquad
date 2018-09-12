@@ -61,7 +61,12 @@ def success(request):
 
 @user_passes_test(has_been_checked, login_url='/')
 def index(request):
-    members = Member.objects.filter(submitted=True).order_by('role')
+    members = Member.objects.filter().order_by('role')
+    return render(request, 'infos/index.html', {'members': members, 'filter_name': "adhérents"})
+
+@user_passes_test(has_been_checked, login_url='/')
+def memberlist(request):
+    members = Member.objects.filter(submitted=True, has_paid=True).order_by('role')
     return render(request, 'infos/index.html', {'members': members, 'filter_name': "adhérents"})
 
 @user_passes_test(has_been_checked, login_url='/')

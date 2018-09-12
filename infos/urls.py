@@ -5,6 +5,7 @@ app_name = 'profile'
 urlpatterns = [
     path(r'', views.profile, name="profile"),
     path(r'list', views.index, name="index"),
+    path(r'memberlist', views.memberlist, name="memberlist"),
     path(r'success', views.success, name="success"),
     path(r'edit', views.edit, name="edit"),
     path(r'membership', views.membership, name="membership"),
