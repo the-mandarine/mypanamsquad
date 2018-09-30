@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import unicodedata
 import os
+import string
 
 
 # Create your models here.
@@ -21,6 +22,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return "%s (#%s)" % (self.derby_name, self.derby_number)
+
+    def slug(self):
+        return ''.join(e for e in str(self) if e.isalnum())
 
 class Member(models.Model):
     FFRS_CHOICES = (('PComp', 'Licence "en patins" par la Panam Squad'),

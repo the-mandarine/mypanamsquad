@@ -3,35 +3,30 @@
 <div class="cover">
   <h1 class="cover-heading">
     <!--<span class="glyphicon glyphicon-bullhorn">&nbsp;</span>-->
-    Docs
+    Trainings
   </h1>
   <div class="lead">
-{% if docs %}
+{% if trainings %}
     <table class="table lead">
     <thead>
     <tr>
-      <th>Type</th>
-      <th>Fichier</th>
-      <th>Taille</th>
+      <th>Date</th>
     </tr>
     </thead>
     <tbody>
-    {% for doc in docs %}
+    {% for training in trainings %}
         <tr>
           <td>
-            <span class="glyphicon glyphicon-file">&nbsp;</span>
-          </td>
-          <td>
-            <a href="/{{ doc.asset.url }}" target="_blank">{{ doc.name }}</a></li>
-          <td>
-            {{ doc.asset.size|filesizeformat }}
-          </td>
+            <span class="glyphicon glyphicon-calendar">&nbsp;</span>
+            <a href="{% url 'derby:training' training.date %}">
+              {{ training.date }}
+            </a></li>
         </tr>
     {% endfor %}
     </tbody>
     </table>
 {% else %}
-    Pas de fichier disponible
+    Pas de training disponible
 {% endif %}
   </div>
 </div>

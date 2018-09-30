@@ -39,15 +39,10 @@
           </a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'docs:index' %}">
-            <span class="glyphicon glyphicon-file">&nbsp;</span>
-          </a></li>
-<!--
-          <li><a href="{% url 'profile:profile' %}">
+          <li><a href="{% url 'derby:profile' %}">
             <span class="glyphicon glyphicon-user">&nbsp;</span>
             Profil
           </a></li>
--->
           {% if user.is_staff %}
           <li><a href="{% url 'admin:index' %}">
             <span class="glyphicon glyphicon-cog">&nbsp;</span>
