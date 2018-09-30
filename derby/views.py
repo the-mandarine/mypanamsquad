@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views import generic
 
 from derby.models import Training, TrainingPart, Player
+from infos.models import Profile, ProfileGroup, Member
 from datetime import date
 from PIL import Image
 from io import StringIO, BytesIO
@@ -14,6 +15,25 @@ def has_been_checked(user):
     valid = False
     try:
         valid = user.profile.has_been_checked
+    except:
+        valid = False
+    return valid
+
+def _is_member(user):
+    valid = False
+    try:
+        valid = user.profile.member.has_been_processed
+    except:
+        valid = False
+    return valid
+
+def _can_validate_presences(user):
+    valid = False
+    usergroups = []
+    try:
+        group = ProfileGroup.objects.get(name='_can_validate_presences')
+        usergroups = user.profile.profilegroup_set.all()
+        valid = group in usergroups
     except:
         valid = False
     return valid
@@ -64,21 +84,24 @@ def profile_update(request):
 def trainings(request):
     trainings = Training.objects.all()
     context = {'trainings': trainings}
-    return render(request, 'derby/index.html', context)
+    return render(request, 'training/index.html', context)
 
+@user_passes_test(_is_member, login_url='/')
 def training(request, date):
     try:
         train = Training.objects.get(date=date)
     except Training.DoesNotExist:
         train = Training.objects.last()
+        return HttpResponseRedirect(reverse('derby:training', args=(train.date,)))
     players = Player.objects.all()
     context = {
                 'default_photo': Player.DEFAULT_PHOTO,
                 'training': train,
                 'players': players
               }
-    return render(request, 'presences/index.html', context)
+    return render(request, 'training/detail.html', context)
 
+@user_passes_test(_can_validate_presences, login_url='/')
 def presences(request):
     training_id = request.POST['training_id']
     clear_parts = request.POST.get('clear_parts', None)

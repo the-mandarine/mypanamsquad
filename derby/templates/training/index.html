@@ -1,57 +1,33 @@
 {% extends 'base.html' %}
-{% block header %}
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-  .btn span.glyphicon {    			
-    opacity: 0;
-    font-weight: bold;
-  }
-  .btn.active span.glyphicon {				
-    opacity: 1;
-    font-weight: bold;
-}
-  </style>
-{% endblock %}
 {% block content %}
 <div class="cover">
-<h1>Training du <u>{{ training.date }}</u></h1>
-<div id="list-view" class="lead">
-  <form class="form-horizontal" action="{% url 'derby:presences' %}" method="post">
-  {% csrf_token %}
-  <table class="table">
-  <thead>
-    <th scope="col">#</th>
-    <th scope="col">Derby name</th>
-    <th scope="col">A suivi</th>
-  </thead>
-  <tbody>
-{% for player in players %}
-  <tr class="">
-    <td>{{ player.profile.derby_number }}</td>
-    <td>{{ player.profile.derby_name }}</td>
-    <td class="btn-group" data-toggle="buttons">
-    {% for part in training.parts.all %}
-      {% if player in part.people.all %}
-      <label class="btn btn-{{ part.kind.button_color }} active">
-	<input type="checkbox" name="pres_{{part.id}}_{{player.id}}" value="Y" checked />
-      {% else %}
-      <label class="btn btn-{{ part.kind.button_color }}">
-	<input type="checkbox" name="pres_{{part.id}}_{{player.id}}" value="Y"/>
-        {% endif %}
-	<span class="glyphicon glyphicon-ok">&nbsp;</span>{{ part.name }}
-      </label>
+  <h1 class="cover-heading">
+    <!--<span class="glyphicon glyphicon-bullhorn">&nbsp;</span>-->
+    Trainings
+  </h1>
+  <div class="lead">
+{% if trainings %}
+    <table class="table lead">
+    <thead>
+    <tr>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for training in trainings %}
+        <tr>
+          <td>
+            <span class="glyphicon glyphicon-calendar">&nbsp;</span>
+            <a href="{% url 'derby:training' training.date %}">
+              {{ training.date }}
+            </a></li>
+        </tr>
     {% endfor %}
-
-    </td>
-  </tr>
-{% endfor %}
-  </tbody>
-  </table>
-  <input type="hidden" name="training_id" value="{{ training.id }}" />
-  <input type="hidden" name="clear_parts" value="{{ training.id }}" />
-  <input type="submit" class="btn btn-lg btn-info" value="Valider les présences" />
-  </form>
-</div>
+    </tbody>
+    </table>
+{% else %}
+    Pas de training disponible
+{% endif %}
+  </div>
 </div>
 {% endblock %}
