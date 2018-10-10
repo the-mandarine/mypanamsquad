@@ -1,9 +1,4 @@
 #!/usr/bin/env python
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "..panamsquad.settings")
-import django
-django.setup()
-
 from infos.models import Member
 
 players = Member.objects.filter(role='P').count()

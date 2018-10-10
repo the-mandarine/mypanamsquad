@@ -62,7 +62,8 @@ def profile_update(request):
         photo_file = photo.file
         ima = Image.open(photo.file.name)
         ima.thumbnail((400, 600), Image.ANTIALIAS)
-        ima.save(photo_file, 'JPEG', quality=100)
+        imb = ima.convert('RGB')
+        imb.save(photo_file, 'JPEG', quality=100)
         photo.file = photo_file
         player.photo = photo
         _, extension = os.path.splitext(photo.name)
@@ -71,7 +72,8 @@ def profile_update(request):
         photo_file = photo2.file
         ima = Image.open(photo2.file.name)
         ima.thumbnail((400, 600), Image.ANTIALIAS)
-        ima.save(photo_file, 'JPEG', quality=100)
+        imb = ima.convert('RGB')
+        imb.save(photo_file, 'JPEG', quality=100)
         photo2.file = photo_file
         player.photo2 = photo2
         _, extension = os.path.splitext(photo.name)
