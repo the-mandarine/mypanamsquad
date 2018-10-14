@@ -3,6 +3,8 @@
 from datetime import datetime, timedelta, timezone, date
 import icalendar
 from dateutil.rrule import *
+from bs4 import BeautifulSoup
+
 import requests
 import json
 from derby.models import Training, TrainingPart, Place
@@ -59,8 +61,8 @@ for event in calendar.walk():
             if "Louis Braille" not in event.get('summary') and "Mac Do" not in event.get('summary'):
                 print(repr(event.get('summary')))
                 if t_part:
-                    t_part += "\n<hr/>\n"
-                t_part += event.get('description')
+                    t_part += "\n"
+                t_part += BeautifulSoup(event.get('description')).get_text()
                 training[event.get('summary')] = t_part
                 trainings[event_date] = training
 
@@ -87,7 +89,7 @@ for training_date in trainings:
             part = TrainingPart()
             part.training = training
             part.name = name
-        part.desc = str(training_date) + desc
+        part.desc = desc
         part.save()
     training.save()
 

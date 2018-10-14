@@ -16,6 +16,16 @@
 {% block content %}
 <div class="cover">
 <h1>Training du <u>{{ training.date }}</u></h1>
+<div id="desc">
+<ul>
+{% for part in training.parts.all %}
+<li>
+<b>{{ part.name }}</b>
+{{ part.desc }}
+</li>
+{% endfor %}
+</ul>
+</div>
 <div id="list-view" class="lead">
   <form class="form-horizontal" action="{% url 'derby:presences' %}" method="post">
   {% csrf_token %}

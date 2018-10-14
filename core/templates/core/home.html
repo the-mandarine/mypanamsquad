@@ -38,6 +38,14 @@
         {% endif %}
       </a>
     {% endif %}
+    {% if can_validate_presences %}
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'derby:trainings' %}">
+        <span class="glyphicon glyphicon-dashboard">&nbsp;</span>
+        Valider les présences
+      </a>
+    {% endif %}
+    
     {% if can_validate_paid %}
       <a class="list-group-item list-group-item-action"
          href="{% url 'profile:payments' %}">

@@ -6,7 +6,7 @@ from django.views import generic
 
 from derby.models import Training, TrainingPart, Player
 from infos.models import Profile, ProfileGroup, Member
-from datetime import date
+from datetime import date, datetime, timedelta
 from PIL import Image
 from io import StringIO, BytesIO
 import os
@@ -84,7 +84,7 @@ def profile_update(request):
 
 @user_passes_test(has_been_checked, login_url='/')
 def trainings(request):
-    trainings = Training.objects.all().order_by('-date')
+    trainings = Training.objects.filter(date__gte=datetime.now()-timedelta(days=30), date__lt=datetime.now()+timedelta(days=15)).order_by('-date')
     context = {'trainings': trainings}
     return render(request, 'training/index.html', context)
 
