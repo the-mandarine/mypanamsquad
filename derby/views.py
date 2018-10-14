@@ -95,7 +95,7 @@ def training(request, date):
     except Training.DoesNotExist:
         train = Training.objects.last()
         return HttpResponseRedirect(reverse('derby:training', args=(train.date,)))
-    players = Player.objects.all()
+    players = Player.objects.all().order_by('profile__derby_number')
     context = {
                 'default_photo': Player.DEFAULT_PHOTO,
                 'training': train,
