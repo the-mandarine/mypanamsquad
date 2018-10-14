@@ -43,17 +43,21 @@ class TrainingPartType(models.Model):
 
 class Training(models.Model):
     date = models.DateField()
-    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=True)
+    place = models.ForeignKey(Place, on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
-        return "%s (%s)" % (self.date, self.place.short_name)
+        return "%s (%s)" % (self.date, str(self.place))
 
 class TrainingPart(models.Model):
     name = models.CharField(max_length=200)
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='parts', null=True)
-    kind = models.ForeignKey(TrainingPartType, on_delete=models.PROTECT, null=True)
+    kind = models.ForeignKey(TrainingPartType, on_delete=models.PROTECT, null=True, default=None)
     desc = models.TextField(blank=True)
     people = models.ManyToManyField(Player, blank=True, editable=False)
     def __str__(self):
-        return "%s - %s (%s)" % (self.training.date, self.name, self.training.place.short_name)
+        if self.training and self.training.place:
+            return "%s - %s (%s)" % (self.training.date, self.name, self.training.place.short_name)
+        elif self.training:
+            return "%s - %s (-)" % (self.training.date, self.name)
+        return "(orphan) - %s (-)" % (self.name)
 

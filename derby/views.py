@@ -84,7 +84,7 @@ def profile_update(request):
 
 @user_passes_test(has_been_checked, login_url='/')
 def trainings(request):
-    trainings = Training.objects.all()
+    trainings = Training.objects.all().order_by('-date')
     context = {'trainings': trainings}
     return render(request, 'training/index.html', context)
 

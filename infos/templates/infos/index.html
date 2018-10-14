@@ -21,14 +21,26 @@
     <th scope="col">#</th>
     <th scope="col">Derby name</th>
     <th scope="col">Role principal</th>
+    <th scope="col">Dossier soumis</th>
+    <th scope="col">Payé</th>
     <th scope="col">Lien Facebook</th>
   </thead>
   <tbody>
 {% for member in members %}
-  <tr class="">
+  {% if member.submitted %}
+    {% if member.has_paid %}
+      <tr>
+    {%else%}
+      <tr class="bg-warning">
+    {%endif%}
+  {% else %}
+    <tr class="bg-danger">
+  {% endif %}
     <td>{{ member.profile.derby_number }}</td>
     <td>{{ member.profile.derby_name }}</td> 
     <td>{{ member.role }}</td> 
+    <td>{{ member.submitted }}</td> 
+    <td>{{ member.has_paid }}</td> 
     <td>
 {% if member.profile.fb_id %}
     <a href="https://www.facebook.com/{{ member.profile.fb_id }}" target="_blank">

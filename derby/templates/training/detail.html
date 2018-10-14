@@ -33,10 +33,10 @@
     <td class="btn-group" data-toggle="buttons">
     {% for part in training.parts.all %}
       {% if player in part.people.all %}
-      <label class="btn btn-{{ part.kind.button_color }} active">
+      <label class="btn btn-{{ part.kind.button_color|default:"primary" }} active">
 	<input type="checkbox" name="pres_{{part.id}}_{{player.id}}" value="Y" checked />
       {% else %}
-      <label class="btn btn-{{ part.kind.button_color }}">
+      <label class="btn btn-{{ part.kind.button_color|default:"default" }}">
 	<input type="checkbox" name="pres_{{part.id}}_{{player.id}}" value="Y"/>
         {% endif %}
 	<span class="glyphicon glyphicon-ok">&nbsp;</span>{{ part.name }}

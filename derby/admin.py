@@ -5,6 +5,7 @@ from derby.models import Place, Player, Training, TrainingPart, TrainingPartType
 admin.site.register(Place)
 admin.site.register(Player)
 admin.site.register(TrainingPartType)
+admin.site.register(TrainingPart)
 
 class TrainingPartInline(admin.TabularInline):
     model = TrainingPart

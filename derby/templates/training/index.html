@@ -11,6 +11,7 @@
     <thead>
     <tr>
       <th>Date</th>
+      <th>Parties</th>
     </tr>
     </thead>
     <tbody>
@@ -20,7 +21,15 @@
             <span class="glyphicon glyphicon-calendar">&nbsp;</span>
             <a href="{% url 'derby:training' training.date %}">
               {{ training.date }}
-            </a></li>
+            </a>
+          </td>
+          <td>
+            {% for part in training.parts.all %}
+              <span class="btn btn-{{ part.kind.button_color|default:"default" }}">
+                {{ part.name }}
+              </span>
+            {% endfor %}
+          </td>
         </tr>
     {% endfor %}
     </tbody>
