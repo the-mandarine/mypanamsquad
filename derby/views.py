@@ -57,6 +57,7 @@ def profile_update(request):
     captain_infos = request.POST['captain_infos']
     various_infos = request.POST['various_infos']
     rgpd_consent = request.POST.getlist('rgpd_consent')
+
     try:
         player = Player.objects.get(profile=request.user.profile)
     except:
