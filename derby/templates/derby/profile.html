@@ -64,7 +64,7 @@
     <div class="row col-md-12">
       <label for="emergency_infos">Infos à transmettre en cas d'urgence :</label>
       <span class="small help-block">Contacts d'urgence, contre-indications médicales, allergies médicales, ...</span>
-<textarea class="form-control" rows="5" id="emergency_infos" >{{ user.profile.player.emergency_infos }}</textarea>
+<textarea name="emergency_infos" class="form-control" rows="5" id="emergency_infos" >{{ user.profile.player.emergency_infos }}</textarea>
     </div>
   </div>
 
@@ -72,7 +72,7 @@
     <div class="row col-md-12">
       <label for="captain_infos">Infos à donner en captain meeting :</label>
       <span class="small help-block">Déficience auditive, ...</span>
-<textarea class="form-control" rows="5" id="captain_infos" >{{ user.profile.player.captain_infos }}</textarea>
+<textarea name="captain_infos" class="form-control" rows="5" id="captain_infos" >{{ user.profile.player.captain_infos }}</textarea>
     </div>
   </div>
 
@@ -80,7 +80,7 @@
     <div class="row col-md-12">
       <label for="various_infos">Infos quasiment publiques lors des déplacements :</label>
       <span class="small help-block">Régime végétarien, ronflements, allergies ou préférences alimentaires, ...</span>
-<textarea class="form-control" rows="5" id="various_infos" >{{ user.profile.player.various_infos }}</textarea>
+<textarea name="various_infos" class="form-control" rows="5" id="various_infos" >{{ user.profile.player.various_infos }}</textarea>
     </div>
   </div>
 
@@ -89,10 +89,11 @@
     <div class="row col-md-12 bg-warning small">
       <label style="font-weight:normal;">
       <div class="col-md-1 checkbox">
-      <input type="checkbox" value="" style="width:60px; height:60px;">
+      <input name="rgpd_consent" type="checkbox" value="1" style="width:60px; height:60px;">
       </div>
       <div class="col-md-11">
-      En cochant cette case, je confirme que j'autorise la Panam Squad à utiliser les données fournies ci-dessus.<br />
+      En cochant cette case, je confirme que j'autorise la Panam Squad à 
+      utiliser les données fournies ci-dessus.<br />
       <ul>
         <li>
           Les informations d'urgence seront accessibles aux coachs/staff 

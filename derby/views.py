@@ -38,7 +38,7 @@ def _can_validate_presences(user):
         valid = False
     return valid
 
-def profile(request, err = None, succ = None, info = None):
+def profile(request, err = None, succ = None, info = None, emergency = None, captain = None, various = None):
     user = request.user
     context = {
                 'user': user,
@@ -46,12 +46,17 @@ def profile(request, err = None, succ = None, info = None):
                 'default_photo_url': Player.DEFAULT_PHOTO,
                 'default_photo2_url': Player.DEFAULT_PHOTO2
               }
+    context.update({'emergency_infos': emergency, 'captain_infos': captain, 'various_infos': various})
     context.update({'error_message': err, 'success_message': succ, 'info_message': info})
     return render(request, 'derby/profile.html', context)
 
 def profile_update(request):
     photo = request.FILES.get('photo', None)
     photo2 = request.FILES.get('photo2', None)
+    emergency_infos = request.POST['emergency_infos']
+    captain_infos = request.POST['captain_infos']
+    various_infos = request.POST['various_infos']
+    rgpd_consent = request.POST['rgpd_consent']
     try:
         player = Player.objects.get(profile=request.user.profile)
     except:
@@ -80,6 +85,14 @@ def profile_update(request):
         player.photo2.name = "%s_2%s" % (request.user.profile.slug(), extension)
     player.save()
 
+# Health part
+    if not rgpd_consent == '1':
+        return profile(request,
+                       err="Les données n'ont pas été sauvegardées. L'acceptation du traitement des données par la Panam Squad est nécessaire.",
+                       emergency=emergency_infos, 
+                       captain=captain_infos,
+                       various=various_infos)
+    
     return profile(request, succ="Profile derby mis à jour")
 
 @user_passes_test(has_been_checked, login_url='/')
