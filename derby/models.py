@@ -16,6 +16,10 @@ class Player(models.Model):
     photo = models.FileField(upload_to=PHOTO_DIR, blank=True)
     photo2 = models.FileField(upload_to=PHOTO_DIR, blank=True)
 
+    various_infos = models.TextField(blank=True)
+    captain_infos = models.TextField(blank=True)
+    emergency_infos = models.TextField(blank=True)
+
     def __str__(self):
         return "#%s %s" % (self.profile.derby_number, self.profile.derby_name)
 
