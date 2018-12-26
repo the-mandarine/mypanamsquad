@@ -92,7 +92,12 @@ def profile_update(request):
                        emergency=emergency_infos, 
                        captain=captain_infos,
                        various=various_infos)
-    
+
+    player.emergency_infos = emergency_infos
+    player.captain_infos = captain_infos
+    player.various_infos = various_infos
+    player.save()
+
     return profile(request, succ="Profile derby mis à jour")
 
 @user_passes_test(has_been_checked, login_url='/')
