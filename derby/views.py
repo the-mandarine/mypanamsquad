@@ -38,6 +38,7 @@ def _can_validate_presences(user):
         valid = False
     return valid
 
+@login_required
 def profile(request, err = None, succ = None, info = None, emergency = None, captain = None, various = None):
     user = request.user
     context = {
@@ -50,6 +51,7 @@ def profile(request, err = None, succ = None, info = None, emergency = None, cap
     context.update({'error_message': err, 'success_message': succ, 'info_message': info})
     return render(request, 'derby/profile.html', context)
 
+@login_required
 def profile_update(request):
     photo = request.FILES.get('photo', None)
     photo2 = request.FILES.get('photo2', None)
