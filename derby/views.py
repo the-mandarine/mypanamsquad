@@ -86,7 +86,7 @@ def profile_update(request):
     player.save()
 
 # Health part
-    if not rgpd_consent == '1':
+    if not 'ok' in rgpd_consent:
         return profile(request,
                        err="Les données n'ont pas été sauvegardées. L'acceptation du traitement des données par la Panam Squad est nécessaire.",
                        emergency=emergency_infos, 
