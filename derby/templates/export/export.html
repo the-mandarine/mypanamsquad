@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block header %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  .btn span.glyphicon {    			
+    opacity: 0;
+    font-weight: bold;
+  }
+  .btn.active span.glyphicon {				
+    opacity: 1;
+    font-weight: bold;
+}
+  </style>
+{% endblock %}
+{% block content %}
+<div class="cover">
+<h1>Export {{mode}}</h1>
+<div id="desc">
+<div id="list-view" class="lead">
+  <table class="table table-hover">
+  <thead class="thead_light">
+    <th scope="col">#</th>
+    <th scope="col">Derby name</th>
+    <th scope="col">Infos diverses</th>
+  </thead>
+  <tbody>
+{% for player in profiles %}
+  <tr class="">
+    <td>{{ player.profile.derby_number }}</td>
+    <td>{{ player.profile.derby_name }}</td>
+    <td>{{ player.various_infos }}<td>
+  </tr>
+{% endfor %}
+  </tbody>
+  </table>
+</div>
+</div>
+{% endblock %}

@@ -8,5 +8,7 @@ urlpatterns = [
     path(r'trainings', views.trainings, name="trainings"),
     path(r'training/<date>', views.training, name="training"),
     path(r'presences', views.presences, name="presences"),
+    path(r'exports', views.export_form, name="export_form"),
+    path(r'export', views.profile_export, name="profile_export"),
 ]
 

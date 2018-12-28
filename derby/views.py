@@ -104,6 +104,27 @@ def profile_update(request):
     return profile(request, succ="Profile derby mis à jour")
 
 @user_passes_test(has_been_checked, login_url='/')
+def export_form(request):
+    profiles = Player.objects.all()
+    context = {'profiles': profiles}
+    return render(request, 'export/form.html', context)
+
+@user_passes_test(has_been_checked, login_url='/')
+def profile_export(request):
+    profile_ids = request.POST.getlist('profile_ids[]')
+    profile_ids = list(map(int, profile_ids))
+    print(profile_ids)
+    mode="interleague"
+    profiles = Player.objects.in_bulk(profile_ids).values()
+    print(profiles)
+    context = {
+                'profiles': profiles,
+                'mode': mode
+              }
+    return render(request, 'export/export.html', context)
+    
+
+@user_passes_test(has_been_checked, login_url='/')
 def trainings(request):
     trainings = Training.objects.filter(date__gte=datetime.now()-timedelta(days=30), date__lt=datetime.now()+timedelta(days=15)).order_by('-date')
     context = {'trainings': trainings}

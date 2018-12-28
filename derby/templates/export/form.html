@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block header %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+  .btn span.glyphicon {    			
+    opacity: 0;
+    font-weight: bold;
+  }
+  .btn.active span.glyphicon {				
+    opacity: 1;
+    font-weight: bold;
+}
+  </style>
+{% endblock %}
+{% block content %}
+<div class="cover">
+<h1>Export {{mode}}</h1>
+<div id="desc">
+<div id="list-view" class="lead">
+  <form class="form-horizontal" action="{% url 'derby:profile_export' %}" method="post">
+  {% csrf_token %}
+  <table class="table">
+  <thead>
+    <th scope="col">#</th>
+    <th scope="col">Derby name</th>
+    <th scope="col">Exporter ?</th>
+  </thead>
+  <tbody>
+{% for player in profiles %}
+  <tr class="">
+    <td>{{ player.profile.derby_number }}</td>
+    <td>{{ player.profile.derby_name }}</td>
+    <td class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary">
+        <input type="checkbox" name="profile_ids[]" value="{{player.id}}" />
+        <span class="glyphicon glyphicon-ok">&nbsp;</span>Exporter
+      </label>
+    </td>
+  </tr>
+{% endfor %}
+  </tbody>
+  </table>
+  <input type="submit" class="btn btn-lg btn-info" name="mode" value="Export interligue" />
+  </form>
+</div>
+</div>
+{% endblock %}
