@@ -80,7 +80,7 @@ def profile_update(request):
     if photo:
         photo_file = photo.file
         ima = Image.open(photo.file.name)
-        ima.thumbnail((400, 600), Image.ANTIALIAS)
+        ima.thumbnail((1200, 1800), Image.ANTIALIAS)
         imb = ima.convert('RGB')
         imb.save(photo_file, 'JPEG', quality=100)
         photo.file = photo_file
@@ -90,7 +90,7 @@ def profile_update(request):
     if photo2:
         photo_file = photo2.file
         ima = Image.open(photo2.file.name)
-        ima.thumbnail((400, 600), Image.ANTIALIAS)
+        ima.thumbnail((1200, 1800), Image.ANTIALIAS)
         imb = ima.convert('RGB')
         imb.save(photo_file, 'JPEG', quality=100)
         photo2.file = photo_file
