@@ -38,6 +38,17 @@ def _can_validate_presences(user):
         valid = False
     return valid
 
+def _can_see_variousinfos(user):
+    valid = False
+    usergroups = []
+    try:
+        group = ProfileGroup.objects.get(name='_can_see_variousinfos')
+        usergroups = user.profile.profilegroup_set.all()
+        valid = group in usergroups
+    except:
+        valid = False
+    return valid
+
 @login_required
 def profile(request, err = None, succ = None, info = None, emergency = None, captain = None, various = None):
     user = request.user
@@ -103,13 +114,13 @@ def profile_update(request):
 
     return profile(request, succ="Profile derby mis à jour")
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(_can_see_variousinfos, login_url='/')
 def export_form(request):
     profiles = Player.objects.all()
     context = {'profiles': profiles}
     return render(request, 'export/form.html', context)
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(_can_see_variousinfos, login_url='/')
 def profile_export(request):
     profile_ids = request.POST.getlist('profile_ids[]')
     profile_ids = list(map(int, profile_ids))
