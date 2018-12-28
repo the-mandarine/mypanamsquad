@@ -63,7 +63,8 @@
   <div class="form-group">
     <div class="row col-md-12">
       <label for="emergency_infos">Infos à transmettre en cas d'urgence :</label>
-      <span class="small help-block">Contacts d'urgence, contre-indications médicales, allergies médicales, ...</span>
+      <span class="small help-block">Contacts d'urgence, contre-indications médicales, allergies médicales, ...
+      <br />(Entrer "Néant" si rien de spécial)</span>
 <textarea name="emergency_infos" class="form-control" rows="5" id="emergency_infos" >{{ emergency_infos|default:user.profile.player.emergency_infos }}</textarea>
     </div>
   </div>
@@ -71,7 +72,8 @@
   <div class="form-group">
     <div class="row col-md-12">
       <label for="captain_infos">Infos à donner en captain meeting :</label>
-      <span class="small help-block">Déficience auditive, ...</span>
+      <span class="small help-block">Déficience auditive, ...
+      <br />(Entrer "Néant" si rien de spécial)</span>
 <textarea name="captain_infos" class="form-control" rows="5" id="captain_infos" >{{ captain_infos|default:user.profile.player.captain_infos }}</textarea>
     </div>
   </div>
@@ -79,7 +81,8 @@
   <div class="form-group">
     <div class="row col-md-12">
       <label for="various_infos">Infos quasiment publiques lors des déplacements :</label>
-      <span class="small help-block">Régime végétarien, ronflements, allergies ou préférences alimentaires, ...</span>
+      <span class="small help-block">Régime végétarien, ronflements, allergies ou préférences alimentaires, ...
+      <br />(Entrer "Néant" si rien de spécial)</span>
 <textarea name="various_infos" class="form-control" rows="5" id="various_infos" >{{ various_infos|default:user.profile.player.various_infos }}</textarea>
     </div>
   </div>
