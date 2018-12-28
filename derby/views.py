@@ -124,13 +124,13 @@ def export_form(request):
 def profile_export(request):
     profile_ids = request.POST.getlist('profile_ids[]')
     profile_ids = list(map(int, profile_ids))
-    print(profile_ids)
     mode="interleague"
     profiles = Player.objects.in_bulk(profile_ids).values()
-    print(profiles)
     context = {
                 'profiles': profiles,
-                'mode': mode
+                'mode': mode,
+                'default_photo_url': Player.DEFAULT_PHOTO,
+                'default_photo2_url': Player.DEFAULT_PHOTO2
               }
     return render(request, 'export/export.html', context)
     

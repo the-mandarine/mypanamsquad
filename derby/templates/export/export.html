@@ -30,6 +30,28 @@
     <td>{{ player.profile.derby_number }}</td>
     <td>{{ player.profile.derby_name }}</td>
     <td>{{ player.various_infos }}<td>
+    <td>
+    {% if player.photo %}
+    <img src="/{{ player.photo.url }}"
+        alt="{{ player.profile.derby_name }}"
+        style="max-width:200px;max-height:300px;border:2px solid white;" />
+    {% else %}
+    <img src="/{{ default_photo_url }}"
+        alt="{{ player.profile.derby_name }}"
+        style="max-width:200px;max-height:300px;border:2px solid white;" />
+    {% endif %}
+    </td>
+    <td>
+    {% if player.photo2 %}
+    <img src="/{{ player.photo2.url }}"
+        alt="{{ player.profile.derby_name }}"
+        style="max-width:200px;max-height:300px;border:2px solid white;" />
+    {% else %}
+    <img src="/{{ default_photo2_url }}"
+        alt="{{ player.profile.derby_name }}"
+        style="max-width:200px;max-height:300px;border:2px solid white;" />
+    {% endif %}
+    </td>
   </tr>
 {% endfor %}
   </tbody>
