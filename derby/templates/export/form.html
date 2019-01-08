@@ -42,6 +42,10 @@
   </tbody>
   </table>
   <input type="submit" class="btn btn-lg btn-info" name="mode" value="Export interligue" />
+{% if user.is_staff %}
+  <input type="submit" class="btn btn-lg btn-warning" name="mode" value="Export captain meeting" />
+  <input type="submit" class="btn btn-lg btn-danger" name="mode" value="Export urgence" />
+{% endif %}
   </form>
 </div>
 </div>

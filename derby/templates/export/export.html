@@ -23,13 +23,25 @@
     <th scope="col">#</th>
     <th scope="col">Derby name</th>
     <th scope="col">Infos diverses</th>
+    {% if user.is_staff and mode == "captain" %}
+    <th>Infos captain meeting</th>
+    {% endif %}
+    {% if user.is_staff and mode == "emergency" %}
+    <th>Infos urgence</th>
+    {% endif %}
   </thead>
   <tbody>
 {% for player in profiles %}
   <tr class="">
     <td>{{ player.profile.derby_number }}</td>
     <td>{{ player.profile.derby_name }}</td>
-    <td>{{ player.various_infos }}<td>
+    <td>{{ player.various_infos }}</td>
+    {% if user.is_staff and mode == "captain" %}
+    <td>{{ player.captain_infos }}</td>
+    {% endif %}
+    {% if user.is_staff and mode == "emergency" %}
+    <td>{{ player.emergency_infos }}</td>
+    {% endif %}
     <td>
     {% if player.photo %}
     <img src="/{{ player.photo.url }}"

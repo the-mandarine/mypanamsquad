@@ -116,7 +116,7 @@ def profile_update(request):
 
 @user_passes_test(_can_see_variousinfos, login_url='/')
 def export_form(request):
-    profiles = Player.objects.all()
+    profiles = Player.objects.order_by('profile__derby_number')
     context = {'profiles': profiles}
     return render(request, 'export/form.html', context)
 
@@ -124,7 +124,12 @@ def export_form(request):
 def profile_export(request):
     profile_ids = request.POST.getlist('profile_ids[]')
     profile_ids = list(map(int, profile_ids))
-    mode="interleague"
+    mode_string = request.POST['mode']
+    mode = "interleague"
+    if mode_string == 'Export captain meeting':
+        mode = "captain"
+    elif mode_string == 'Export urgence':
+        mode = "emergency"
     profiles = Player.objects.in_bulk(profile_ids).values()
     context = {
                 'profiles': profiles,
