@@ -38,11 +38,11 @@
         {% endif %}
       </a>
     {% endif %}
-    {% if can_validate_presences %}
+    {% if can_see_variousinfos or user.is_staff %}
       <a class="list-group-item list-group-item-action"
-         href="{% url 'derby:trainings' %}">
-        <span class="glyphicon glyphicon-dashboard">&nbsp;</span>
-        Valider les présences
+         href="{% url 'derby:export_form' %}">
+        <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
+        Fiches membres
       </a>
     {% endif %}
     
