@@ -38,6 +38,15 @@
         {% endif %}
       </a>
     {% endif %}
+
+    {% if can_see_sponsoremails %}
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'derby:mail_export' %}">
+        <span class="glyphicon glyphicon-th-list">&nbsp;</span>
+        Emails des membres pour sponsoring
+      </a>
+    {% endif %}
+
     {% if can_see_variousinfos or user.is_staff %}
       <a class="list-group-item list-group-item-action"
          href="{% url 'derby:export_form' %}">

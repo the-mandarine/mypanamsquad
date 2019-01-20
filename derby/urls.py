@@ -10,5 +10,6 @@ urlpatterns = [
     path(r'presences', views.presences, name="presences"),
     path(r'exports', views.export_form, name="export_form"),
     path(r'export', views.profile_export, name="profile_export"),
+    path(r'sponsor_emails.txt', views.mail_export, name="mail_export"),
 ]
 

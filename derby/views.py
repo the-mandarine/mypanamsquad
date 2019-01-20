@@ -49,6 +49,17 @@ def _can_see_variousinfos(user):
         valid = False
     return valid
 
+def _can_see_sponsoremails(user):
+    valid = False
+    usergroups = []
+    try:
+        group = ProfileGroup.objects.get(name='_can_see_sponsoremails')
+        usergroups = user.profile.profilegroup_set.all()
+        valid = group in usergroups
+    except:
+        valid = False
+    return valid
+
 @login_required
 def profile(request, err = None, succ = None, info = None, emergency = None, captain = None, various = None):
     user = request.user
@@ -142,6 +153,12 @@ def profile_export(request):
                 'default_photo2_url': Player.DEFAULT_PHOTO2
               }
     return render(request, 'export/export.html', context)
+
+@user_passes_test(_can_see_sponsoremails, login_url='/')
+def mail_export(request):
+    profiles = Profile.objects.filter(player__accepts_sponsorship = True)
+    context = {'profiles': profiles}
+    return render(request, 'export/mail_export.txt', context, 'text/plain')
     
 
 @user_passes_test(has_been_checked, login_url='/')

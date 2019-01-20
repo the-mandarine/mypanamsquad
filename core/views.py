@@ -15,9 +15,11 @@ def home(request):
         return HttpResponseRedirect(reverse('profile:profile'))
     can_validate_paid = profile.profilegroup_set.filter(name='_can_validate_paid').exists()
     can_see_variousinfos = profile.profilegroup_set.filter(name='_can_see_variousinfos').exists()
+    can_see_sponsoremails = profile.profilegroup_set.filter(name='_can_see_sponsoremails').exists()
     context = {
                'can_validate_paid': can_validate_paid,
-               'can_see_variousinfos': can_see_variousinfos}
+               'can_see_variousinfos': can_see_variousinfos,
+               'can_see_sponsoremails': can_see_sponsoremails}
     return render(request, 'core/home.html', context)
 
 def privacy(request):
