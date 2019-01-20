@@ -20,6 +20,8 @@ class Player(models.Model):
     captain_infos = models.TextField(blank=True)
     emergency_infos = models.TextField(blank=True)
 
+    accepts_sponsorship = models.BooleanField(default=False)
+
     def __str__(self):
         return "#%s %s" % (self.profile.derby_number, self.profile.derby_name)
 

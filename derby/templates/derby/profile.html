@@ -89,6 +89,24 @@
 
 <hr />
   <div class="form-group">
+    <div class="row col-md-12 bg-info small">
+      <label style="font-weight:normal;">
+      <div class="col-md-1 checkbox">
+      {% if user.profile.player.accepts_sponsorship %}
+      <input name="accepts_sponsorship" type="checkbox" value="ok" style="width:60px; height:60px;" checked />
+      {% else %}
+      <input name="accepts_sponsorship" type="checkbox" value="ok" style="width:60px; height:60px;" />
+      {% endif %}
+      </div>
+      <div class="col-md-11">
+      En cochant cette case, j'accepte qu'une partie de mes informations
+      personnelles (dont mon adresse e-mail) soit transmise aux partenaires
+      de parrainage de la Panam Squad afin de bénéficier des offres spéciales
+      de sponsoring.
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="row col-md-12 bg-warning small">
       <label style="font-weight:normal;">
       <div class="col-md-1 checkbox">

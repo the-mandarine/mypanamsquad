@@ -70,6 +70,7 @@ def profile_update(request):
     captain_infos = request.POST['captain_infos']
     various_infos = request.POST['various_infos']
     rgpd_consent = request.POST.getlist('rgpd_consent')
+    accepts_sponsorship = request.POST.getlist('accepts_sponsorship')
 
     try:
         player = Player.objects.get(profile=request.user.profile)
@@ -110,6 +111,9 @@ def profile_update(request):
     player.emergency_infos = emergency_infos
     player.captain_infos = captain_infos
     player.various_infos = various_infos
+    player.accepts_sponsorship = False
+    if 'ok' in accepts_sponsorship:
+        player.accepts_sponsorship = True
     player.save()
 
     return profile(request, succ="Profile derby mis à jour")
