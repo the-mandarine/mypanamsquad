@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="cover">
+  <h1 class="cover-heading">{{ opinion_question.name }}</h1>
+  <div class="lead">
+{% if error_message %}
+<div class="alert alert-info" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+
+<div class="lead">
+{{ opinion_question.text }}
+</div>
+  <div>
+{% if has_answered %}
+<p class="alert alert-success">
+Merci d'avoir répondu !
+</p>
+{% else %}
+<form class="lead" action="{% url 'opinions:express' opinion_question.slug %}" method="post">
+{% csrf_token %}
+  <div class="form-group">
+    <textarea class="form-control" rows="10" name="answer_text"></textarea>
+  </div>
+  <input class="form-control btn btn-default" type="submit" value="m'exprimer" />
+</form>
+{% endif %}
+{% if can_see_answers %}
+  <p>
+    <a href="{% url 'opinions:results' opinion_question.slug %}">Voir les réponses</a>
+  </p>
+{% endif  %}
+  </div>
+{% endblock %}
+

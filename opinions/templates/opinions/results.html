@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <h1 class="cover-heading">{{ opinion_question.text }}</h1>
+  <div class="lead">
+{% for opinion in opinion_question.opinion_set.all %}
+    <div>
+    <b>{{ opinion.date }}</b>
+    <blockquote class="blockquote">
+    {{ opinion.text|linebreaks }}
+    </blockquote>
+    </div>
+{% endfor %}
+  </div>
+</div>
+{% endblock %}
+
