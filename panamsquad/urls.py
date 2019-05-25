@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from core import views as core_views
 from votes import urls as votes_urls
+from opinions import urls as opinions_urls
 from docs import urls as docs_urls
 from infos import urls as infos_urls
 from derby import urls as derby_urls
@@ -33,6 +34,7 @@ urlpatterns = [
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
     url(r'^votes/', include(votes_urls)),
+    url(r'^opinions/', include(opinions_urls)),
     url(r'^docs/', include(docs_urls)),
     url(r'^profile/', include(infos_urls)),
     url(r'^derby/', include(derby_urls)),
