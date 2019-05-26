@@ -78,9 +78,9 @@ remplacée.
   <select name="proxy" class="custom-select custom-select-lg mb-3">
     {% for proxy in proxies %}
       {% if proxy.possible_proxy and not proxy == user.profile and not proxy == attendance.proxy_to %}
-        <option value="{{ proxy.id }}">{{ proxy.derby_name }}</option>
+        <option value="{{ proxy.id }}">{{ proxy.derby_name }} (#{{ proxy.derby_number }})</option>
       {% else %}
-        <option value="{{ proxy.id }}" disabled>{{ proxy.derby_name }}</option>
+        <option value="{{ proxy.id }}" disabled>{{ proxy.derby_name }} (#{{ proxy.derby_number }})</option>
       {% endif %}
     {% endfor %}
   </select>.
