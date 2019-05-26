@@ -2,7 +2,7 @@
 {% block content %}
 <div class="cover">
   <h1 class="cover-heading">{{ opinion_question.name }}</h1>
-  <div class="lead">
+  <div class="alert alert-info lead">
     {{ opinion_question.text|linebreaks }}
   </div>
 {% for opinion in opinion_question.opinion_set.all %}
