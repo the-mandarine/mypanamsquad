@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="cover">
+  <h1 class="cover-heading">
+    <span class="glyphicon glyphicon-bullhorn">&nbsp;</span>
+    Events
+  </h1>
+  <div class="lead">
+    <ul>
+    {% for event in events %}
+      <li>
+        <a href="{% url 'events:detail' event.slug %}" title="{{ event.name }}">[{{ event.date }}] {{ event.name }}</a>
+      </li>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="cover">
+  <h1 class="cover-heading">[{{ event.date }}] {{ event.name }}</h1>
+  {% if event.place %}
+  <h3 class="cover-heading"><span class="glyphicon glyphicon-map-marker"></span>{{ event.place.name }}</h3>
+  {% endif %}
+  <div class="lead">
+{% if error_message %}
+<div class="alert alert-info" role="alert">
+  {{ error_message }}
+</div>
+{% endif %}
+
+<div class="alert lead">
+{{ event.desc|linebreaks }}
+</div>
+<!-- Is this member proxy ? -->
+<div>
+{% for member_proxy in member_proxies %}
+{% if member_proxy.accepted %}
+<p class="alert alert-success">
+Tu as accepté la demande de procuration de <b>{{ member_proxy.member.derby_name }}</b>.<br />
+En cas d'absence de sa part, tu représenteras <b>{{ member_proxy.member.derby_name }}</b> le {{ event.date }}.
+Nous comptons donc sur ta présence :).
+</p>
+{% else %}
+<form class="alert alert-warning" action="{% url 'events:proxy' event.slug %}" method="post">
+{% csrf_token %}
+<b>{{ member_proxy.member.derby_name }}</b> te propose son pouvoir de vote pour le {{ event.date }}.<br />
+Acceptes-tu cette procuration ?
+<input type="hidden" name="member_id" value="{{ member_proxy.member.id }}" />
+<input class="btn btn-lg btn-success" type="submit" name="proxy_accept" value="oui" />
+<input class="btn btn-lg btn-danger" type="submit" name="proxy_deny" value="non" />
+</form>
+</p>
+{% endif %}
+{% endfor %}
+</div>
+<!-- Will this member come ? -->
+<div>
+{% if attendance.attendance == 'Y' %}
+<p class="alert alert-success">
+Tu as confirmé ta participation à cet événement. 
+</p>
+{% elif attendance.attendance == 'N' %}
+<p class="alert alert-danger">
+Tu n'as pas confirmé ta participation à cet événement. 
+<span class="glyphicon glyphicon-info-sign"
+      title="Si tu avais fait une demande de procuration et qu'elle n'apparaît pas ici, c'est que cette procuration n'est plus possible ou a été refusée">&nbsp;
+</span>
+</p>
+{% elif attendance.attendance == 'P' %}
+<p class="alert alert-info">
+Tu as demandé une procuration à <b>{{ attendance.proxy_to.derby_name }}</b>. <br />
+</p>
+{% if attendance.accepted %}
+<p class="alert alert-success">
+<b>{{ attendance.proxy_to.derby_name }}</b> a accepté ton pouvoir pour cet événement. A défaut de ta présence, 
+<b>{{ attendance.proxy_to.derby_name }}</b> votera pour toi le {{ event.date }}.
+</p>
+{% else %}
+<p class="alert alert-warning">
+<b>{{ attendance.proxy_to.derby_name }}</b> n'a pas encore accepté ton pouvoir pour cet événement. <br/>
+Si tu refais une demande de procuration ci-dessous, ta première demande sera annulée et
+remplacée. 
+</p>
+{% endif %}
+{% endif %}
+<form class="lead" action="{% url 'events:attend' event.slug %}" method="post">
+{% csrf_token %}
+  <div class="form-group">
+  <hr />
+  Je compte assister en personne à cet événement.
+  <input class="btn-block btn btn-lg btn-success" type="submit" name="Y" value="Je viens." /><br />
+  <hr />
+  Pour cet événement, je souhaite donner pouvoir de vote à 
+  <select name="proxy" class="custom-select custom-select-lg mb-3">
+    {% for proxy in proxies %}
+      {% if proxy.possible_proxy and not proxy == user.profile and not proxy == attendance.proxy_to %}
+        <option value="{{ proxy.id }}">{{ proxy.derby_name }}</option>
+      {% else %}
+        <option value="{{ proxy.id }}" disabled>{{ proxy.derby_name }}</option>
+      {% endif %}
+    {% endfor %}
+  </select>.
+  <span class="glyphicon glyphicon-info-sign"
+        title="Un membre apparaît grisé s'il a lui-même demandé une procuration, s'il ne vient pas ou s'il a déjà 3 demandes de procuration en cours.">&nbsp;
+  </span>
+  <input class="btn btn-block  btn-lg btn-info" type="submit" name="P"
+         value="Je valide ma demande de procuration et je refuse donc les demandes de procuration qui m'ont été adressées." /><br />
+  <hr />
+  Je ne compte pas participer à cet événement et ne souhaite pas y être représenté.
+  <input class="btn btn-block btn-lg btn-danger" type="submit" name="N" 
+         value="Je ne viens pas et je refuse donc toutes les demandes de procuration qui m'ont été adressées." /><br />
+  <hr />
+  </div>
+</form>
+</div>
+{% endblock %}
+
