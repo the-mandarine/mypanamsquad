@@ -22,6 +22,7 @@ from opinions import urls as opinions_urls
 from docs import urls as docs_urls
 from infos import urls as infos_urls
 from derby import urls as derby_urls
+from events import urls as events_urls
 
 admin.site.site_header = 'Panam Squad Administration'
 
@@ -38,4 +39,5 @@ urlpatterns = [
     url(r'^docs/', include(docs_urls)),
     url(r'^profile/', include(infos_urls)),
     url(r'^derby/', include(derby_urls)),
+    url(r'^events/', include(events_urls)),
 ]
