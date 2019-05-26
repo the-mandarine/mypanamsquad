@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="cover">
-  <h1 class="cover-heading">{{ opinion_question.text }}</h1>
+  <h1 class="cover-heading">{{ opinion_question.name }}</h1>
   <div class="lead">
+    {{ opinion_question.text|linebreaks }}
+  </div>
 {% for opinion in opinion_question.opinion_set.all %}
     <div>
     <b>{{ opinion.date }}</b>
@@ -11,7 +13,6 @@
     </blockquote>
     </div>
 {% endfor %}
-  </div>
 </div>
 {% endblock %}
 
