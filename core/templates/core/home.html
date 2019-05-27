@@ -38,28 +38,21 @@
         {% endif %}
       </a>
     {% endif %}
-
-    {% if can_see_sponsoremails %}
       <a class="list-group-item list-group-item-action"
-         href="{% url 'derby:mail_export' %}">
-        <span class="glyphicon glyphicon-th-list">&nbsp;</span>
-        Emails des membres pour sponsoring
+        href="{% url 'events:index' %}">
+        <span class="glyphicon glyphicon-calendar">&nbsp;</span>
+        Evénements à venir
       </a>
-    {% endif %}
-
-    {% if can_see_variousinfos or user.is_staff %}
+    {% if user.profile.has_been_checked %}
       <a class="list-group-item list-group-item-action"
-         href="{% url 'derby:export_form' %}">
-        <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
-        Fiches membres
+         href="{% url 'opinions:index' %}">
+        <span class="glyphicon glyphicon-comment">&nbsp;</span>
+        Donne ton opinion
       </a>
-    {% endif %}
-    
-    {% if can_validate_paid %}
-      <a class="list-group-item list-group-item-action"
-         href="{% url 'profile:payments' %}">
-        <span class="glyphicon glyphicon-eur">&nbsp;</span>
-        Valider les paiements
+    {% else %}
+      <a class="list-group-item list-group-item-action disabled"
+        href="#">
+        <span class="glyphicon glyphicon-comment">&nbsp;</span>Donne ton opinion
       </a>
     {% endif %}
     {% if user.profile.has_been_checked %}
@@ -79,11 +72,27 @@
         <span class="glyphicon glyphicon-file">&nbsp;</span>
         Documents et fichiers
       </a>
-      <a class="list-group-item list-group-item-action disabled"
-        href="#">
-        <span class="glyphicon glyphicon-calendar">&nbsp;</span>
-        Evénements à venir
+    {% if can_see_variousinfos or user.is_staff %}
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'derby:export_form' %}">
+        <span class="glyphicon glyphicon-list-alt">&nbsp;</span>
+        Fiches membres
       </a>
+    {% endif %}
+    {% if can_validate_paid %}
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'profile:payments' %}">
+        <span class="glyphicon glyphicon-eur">&nbsp;</span>
+        Valider les paiements
+      </a>
+    {% endif %}
+    {% if can_see_sponsoremails %}
+      <a class="list-group-item list-group-item-action"
+         href="{% url 'derby:mail_export' %}">
+        <span class="glyphicon glyphicon-th-list">&nbsp;</span>
+        Emails des membres pour sponsoring
+      </a>
+    {% endif %}
   </div>
   </p>
   </div>
