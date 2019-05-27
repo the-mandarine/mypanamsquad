@@ -77,6 +77,7 @@ remplacée.
   <hr />
   Pour cet événement, je souhaite donner pouvoir de vote à 
   <select name="proxy" class="custom-select custom-select-lg mb-3">
+    <option disabled selected value></option>
     {% for proxy in proxies %}
       {% if proxy.possible_proxy and not proxy == user.profile and not proxy == attendance.proxy_to %}
         <option value="{{ proxy.id }}">{{ proxy.derby_name }} (#{{ proxy.derby_number }})</option>

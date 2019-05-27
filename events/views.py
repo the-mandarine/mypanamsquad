@@ -14,7 +14,7 @@ TZ = timezone(settings.TIME_ZONE)
 MAX_PROXY = 3
 
 def get_proxies(event):
-    profiles = event.expected_members.filter(has_been_checked = True).order_by('derby_number')
+    profiles = event.expected_members.filter(has_been_checked = True).order_by('derby_name')
     for profile in profiles:
         profile.possible_proxy = True
         proxy_absent = Attendance.objects.filter(member = profile, attendance = 'N')
