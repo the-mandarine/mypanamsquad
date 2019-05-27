@@ -88,6 +88,7 @@ def attend(request, slug):
         try:
             proxy_profile = Profile.objects.get(pk = proxy_to)
         except Profile.DoesNotExist:
+            attendance.attendance = 'N'
             proxy_profile = None
         attendance.proxy_to = proxy_profile
         attendance.accepted = False
