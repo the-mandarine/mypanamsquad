@@ -85,7 +85,10 @@ def attend(request, slug):
         attendance.accepted = True
     elif proxy:
         attendance.attendance = 'P'
-        proxy_profile = Profile.objects.get(pk = proxy_to)
+        try:
+            proxy_profile = Profile.objects.get(pk = proxy_to)
+        except Profile.DoesNotExist:
+            proxy_profile = None
         attendance.proxy_to = proxy_profile
         attendance.accepted = False
         # Remove all proxy requests
