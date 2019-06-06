@@ -8,10 +8,15 @@
     Bienvenue sur l'intranet de la Panam Squad.
   </div>
   <div class="lead">
-    <a
+  <form method="POST" action="{% url 'social:begin' 'facebook' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}" />
+    <input
+      type="submit"
       class="btn btn-info btn-lg col-sm-8 col-sm-offset-2"
       style="font-size: 40px; line-height: 2em;"
-      href="{% url 'social:begin' 'facebook' %}">Connecte-toi par Facebook</a>
+      value="Connecte-toi par Facebook" />
+  </form>
   <br /><br />
   </div>
 {% endblock %}

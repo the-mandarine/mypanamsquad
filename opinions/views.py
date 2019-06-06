@@ -32,7 +32,7 @@ def index(request):
     context = {'opinion_questions': opinion_questions}
     return render(request, 'opinions/index.html', context)
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     opinion_question = get_object_or_404(OpinionQuestion, slug=slug)
