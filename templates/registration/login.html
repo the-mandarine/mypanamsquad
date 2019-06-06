@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% block header %}
+{% if request.user.is_authenticated %}
+<meta http-equiv="REFRESH" content="0;url=/">
+{% endif %}
+{% endblock %}
 {% block content %}
+{% if not request.user.is_authenticated %}
   <div class="cover">
   <h1 class="cover-heading">Hey, salut!</h1>
   <div class="lead">
@@ -19,4 +24,6 @@
   </form>
   <br /><br />
   </div>
+
+{%endif %}
 {% endblock %}

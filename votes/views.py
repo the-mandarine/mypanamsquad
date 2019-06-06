@@ -19,7 +19,7 @@ def has_been_checked(user):
         valid = False
     return valid
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def index(request):
     user = request.user
     now = TZ.localize(datetime.now())
@@ -27,7 +27,7 @@ def index(request):
     context = {'latest_votes': latest_votes}
     return render(request, 'votes/index.html', context)
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
@@ -49,7 +49,7 @@ def detail(request, slug):
         })
     return render(request, 'votes/detail.html', {'vote': vote, 'activated': True})
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def vote(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug, pub_date__lt=now)
@@ -75,7 +75,7 @@ def vote(request, slug):
         selected.save()
     return HttpResponseRedirect(reverse('votes:detail', args=(slug,)))
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def results(request, slug):
     now = TZ.localize(datetime.now())
     vote = get_object_or_404(Vote, slug=slug)

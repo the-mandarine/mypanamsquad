@@ -59,17 +59,17 @@ def success(request):
     context = {'success_message': success_msg}
     return render(request, 'infos/profile.html', context)
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def index(request):
     members = Member.objects.filter().order_by('role')
     return render(request, 'infos/index.html', {'members': members, 'filter_name': "adhérents"})
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def memberlist(request):
     members = Member.objects.filter(submitted=True, has_paid=True).order_by('role')
     return render(request, 'infos/index.html', {'members': members, 'filter_name': "adhérents"})
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def teammate(request, derby_number):
     """Check my teammate's profile"""
     user = request.user
@@ -150,7 +150,7 @@ def subscribe(request):
 def edit(request):
     return HttpResponseRedirect(reverse('profile:success'))
 
-@user_passes_test(has_membership, login_url='/')
+@user_passes_test(has_membership, login_url='/login/')
 def health_cert_redir(request):
     member = request.user.profile.member
     if member.health_cert:
@@ -158,13 +158,13 @@ def health_cert_redir(request):
         return HttpResponseRedirect(reverse('profile:health_cert', args=(cert_url,)))
     return HttpResponseRedirect(reverse('profile:profile'))
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def health_cert(request, filename):
     user = request.user
     cert_file = user.profile.member.health_cert
     return HttpResponse(cert_file.read(), content_type='application/octet-stream')
 
-@user_passes_test(_can_validate_paid, login_url='/')
+@user_passes_test(_can_validate_paid, login_url='/login/')
 def validate_payments(request):
     for post_var in request.POST.keys():
         if post_var.startswith('paid_'):
@@ -181,7 +181,7 @@ def validate_payments(request):
     context = {'submitted_members': submitted_members, 'success_message': msg}
     return render(request, 'infos/payments.html', context)
 
-@user_passes_test(_can_validate_paid, login_url='/')
+@user_passes_test(_can_validate_paid, login_url='/login/')
 def payments(request):
     submitted_members = Member.objects.filter(submitted=True).order_by('profile__derby_name')
     return render(request, 'infos/payments.html', {'submitted_members': submitted_members})

@@ -129,13 +129,13 @@ def profile_update(request):
 
     return profile(request, succ="Profile derby mis à jour")
 
-@user_passes_test(_can_see_variousinfos, login_url='/')
+@user_passes_test(_can_see_variousinfos, login_url='/login/')
 def export_form(request):
     profiles = Player.objects.order_by('profile__derby_number')
     context = {'profiles': profiles}
     return render(request, 'export/form.html', context)
 
-@user_passes_test(_can_see_variousinfos, login_url='/')
+@user_passes_test(_can_see_variousinfos, login_url='/login/')
 def profile_export(request):
     profile_ids = request.POST.getlist('profile_ids[]')
     profile_ids = list(map(int, profile_ids))
@@ -154,20 +154,20 @@ def profile_export(request):
               }
     return render(request, 'export/export.html', context)
 
-@user_passes_test(_can_see_sponsoremails, login_url='/')
+@user_passes_test(_can_see_sponsoremails, login_url='/login/')
 def mail_export(request):
     profiles = Profile.objects.filter(player__accepts_sponsorship = True)
     context = {'profiles': profiles}
     return render(request, 'export/mail_export.txt', context, 'text/plain')
     
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def trainings(request):
     trainings = Training.objects.filter(date__gte=datetime.now()-timedelta(days=30), date__lt=datetime.now()+timedelta(days=15)).order_by('-date')
     context = {'trainings': trainings}
     return render(request, 'training/index.html', context)
 
-@user_passes_test(_is_member, login_url='/')
+@user_passes_test(_is_member, login_url='/login/')
 def training(request, date):
     try:
         train = Training.objects.get(date=date)
@@ -182,7 +182,7 @@ def training(request, date):
               }
     return render(request, 'training/detail.html', context)
 
-@user_passes_test(_can_validate_presences, login_url='/')
+@user_passes_test(_can_validate_presences, login_url='/login/')
 def presences(request):
     training_id = request.POST['training_id']
     clear_parts = request.POST.get('clear_parts', None)

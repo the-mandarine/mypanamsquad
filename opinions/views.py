@@ -24,7 +24,7 @@ def can_see_answers(user, opinion_question):
     user_is_allowed = user.profile in opinion_question.can_see_answers.all()
     return user_is_allowed or user_in_allowed_group
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def index(request):
     user = request.user
     now = TZ.localize(datetime.now())
@@ -44,7 +44,7 @@ def detail(request, slug):
         'can_see_answers': can_see_answers(user, opinion_question)
     })
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def express(request, slug):
     now = TZ.localize(datetime.now())
     opinion_question = get_object_or_404(OpinionQuestion, slug=slug)
@@ -59,7 +59,7 @@ def express(request, slug):
         opinion_question.has_answered.add(request.user.profile)
     return HttpResponseRedirect(reverse('opinions:detail', args=(slug,)))
 
-@user_passes_test(has_been_checked, login_url='/')
+@user_passes_test(has_been_checked, login_url='/login/')
 def results(request, slug):
     now = TZ.localize(datetime.now())
     opinion_question = get_object_or_404(OpinionQuestion, slug=slug)
