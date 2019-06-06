@@ -28,7 +28,7 @@ def can_see_answers(user, opinion_question):
 def index(request):
     user = request.user
     now = TZ.localize(datetime.now())
-    opinion_questions = OpinionQuestion.objects.all()
+    opinion_questions = OpinionQuestion.objects.filter()
     context = {'opinion_questions': opinion_questions}
     return render(request, 'opinions/index.html', context)
 

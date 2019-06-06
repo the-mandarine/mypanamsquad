@@ -13,7 +13,11 @@
 {{ opinion_question.text|linebreaks }}
 </div>
   <div>
-{% if has_answered %}
+{% if opinion_question.archived %}
+<p class="alert alert-warning">
+Ce sondage est archivé.
+</p>
+{% elif has_answered %}
 <p class="alert alert-success">
 Merci d'avoir répondu !
 </p>

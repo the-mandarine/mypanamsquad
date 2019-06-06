@@ -15,6 +15,8 @@ class OpinionQuestion(models.Model):
     can_see_answers = models.ManyToManyField(Profile, related_name='can_answer_to', blank=True)
     group_can_see_answers = models.ManyToManyField(ProfileGroup, related_name='can_answer_to', blank=True)
     has_answered = models.ManyToManyField(Profile, related_name='answered_to', blank=True, editable=False)
+    archived = models.BooleanField(default=False)
+
     def __str__(self):
         return self.name
 
