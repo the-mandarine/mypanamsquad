@@ -11,7 +11,7 @@ TZ = timezone(settings.TIME_ZONE)
 class OpinionQuestion(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    text = models.TextField(max_length=400)
+    text = models.TextField()
     can_see_answers = models.ManyToManyField(Profile, related_name='can_answer_to', blank=True)
     group_can_see_answers = models.ManyToManyField(ProfileGroup, related_name='can_answer_to', blank=True)
     has_answered = models.ManyToManyField(Profile, related_name='answered_to', blank=True, editable=False)
