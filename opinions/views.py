@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views import generic
 
-from opinions.models import OpinionQuestion, Opinion
+from opinions.models import OpinionQuestion, OpinionSubQuestion, Opinion
 from datetime import datetime
 from pytz import timezone
 from django.conf import settings
@@ -36,10 +36,12 @@ def index(request):
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     opinion_question = get_object_or_404(OpinionQuestion, slug=slug)
+    subquestions = OpinionSubQuestion.objects.filter(question=opinion_question)
     has_answered = request.user.profile in opinion_question.has_answered.all()
     user = request.user
     return render(request, 'opinions/detail.html', {
         'opinion_question': opinion_question,
+        'subquestions': subquestions,
         'has_answered': has_answered,
         'can_see_answers': can_see_answers(user, opinion_question)
     })
@@ -48,13 +50,14 @@ def detail(request, slug):
 def express(request, slug):
     now = TZ.localize(datetime.now())
     opinion_question = get_object_or_404(OpinionQuestion, slug=slug)
-    answer_text = request.POST['answer_text']
+    answer_text = request.POST.getlist('answer_text[]')
+
     answer_date = datetime.now()
     if request.user.profile not in opinion_question.has_answered.all():
         opinion = Opinion()
         opinion.question = opinion_question
         opinion.date = answer_date
-        opinion.text = answer_text
+        opinion.text = '\n\n'.join(answer_text)
         opinion.save()
         opinion_question.has_answered.add(request.user.profile)
     return HttpResponseRedirect(reverse('opinions:detail', args=(slug,)))

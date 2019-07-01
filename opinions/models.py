@@ -20,6 +20,14 @@ class OpinionQuestion(models.Model):
     def __str__(self):
         return self.name
 
+class OpinionSubQuestion(models.Model):
+    question = models.ForeignKey(OpinionQuestion, on_delete=models.CASCADE)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text[:120]
+
+
 class Opinion(models.Model):
     question = models.ForeignKey(OpinionQuestion, on_delete=models.CASCADE)
     date = models.DateTimeField()

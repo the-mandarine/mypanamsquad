@@ -9,7 +9,7 @@
     <div>
     <b>{{ opinion.date }}</b>
     <blockquote class="blockquote">
-    {{ opinion.text|linebreaks }}
+    {{ opinion.text|safe|linebreaks }}
     </blockquote>
     </div>
 {% endfor %}

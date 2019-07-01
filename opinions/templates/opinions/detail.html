@@ -24,9 +24,22 @@ Merci d'avoir répondu !
 {% else %}
 <form class="lead" action="{% url 'opinions:express' opinion_question.slug %}" method="post">
 {% csrf_token %}
+{% if not subquestions %}
   <div class="form-group">
-    <textarea class="form-control" rows="10" name="answer_text"></textarea>
+    <textarea class="form-control" rows="10" name="answer_text[]"></textarea>
   </div>
+{% else %}
+<input type="hidden" name="with_subquestions" value="1" />
+{% for subquestion in subquestions %}
+<div class="alert alert-info lead">
+{{ subquestion.text|linebreaks }}
+<textarea style="visibility: hidden; position: absolute;" name="answer_text[]"><b>&#8649; {{ subquestion.text }} &#8647;</b></textarea>
+</div>
+  <div class="form-group">
+    <textarea class="form-control" rows="4" name="answer_text[]"></textarea>
+  </div>
+{% endfor %}
+{% endif %}
   <input class="form-control btn btn-default" type="submit" value="m'exprimer" />
 </form>
 {% endif %}
