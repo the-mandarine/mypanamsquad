@@ -17,6 +17,10 @@
 <p class="alert alert-warning">
 Ce sondage est archivé.
 </p>
+{% elif not can_answer %}
+<p class="alert alert-warning">
+Vous ne pouvez pas répondre à ce sondage !
+</p>
 {% elif has_answered %}
 <p class="alert alert-success">
 Merci d'avoir répondu !

@@ -9,7 +9,7 @@ class OpinionSubQuestionInline(admin.TabularInline):
     extra = 1
 
 class OpinionQuestionAdmin(admin.ModelAdmin):
-    filter_horizontal = ('can_see_answers', 'group_can_see_answers', )
+    filter_horizontal = ('can_answer', 'can_see_answers', 'group_can_see_answers', )
     inlines = [OpinionSubQuestionInline]
 
 admin.site.register(OpinionQuestion, OpinionQuestionAdmin)
