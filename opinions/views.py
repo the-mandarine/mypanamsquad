@@ -53,15 +53,25 @@ def express(request, slug):
     now = TZ.localize(datetime.now())
     opinion_question = get_object_or_404(OpinionQuestion, slug=slug)
     answer_text = request.POST.getlist('answer_text[]')
+    stored_answer = answer_text
+    if len(answer_text) >= 2:
+        stored_answer = ""
+        for field in answer_text:
+            if field[:3] != 'Q: ':
+                stored_answer += 'A: '+field
+            else:
+                stored_answer += field
+            stored_answer += '\n'
 
     answer_date = datetime.now()
     if request.user.profile in opinion_question.can_answer.all() and request.user.profile not in opinion_question.has_answered.all():
         opinion = Opinion()
         opinion.question = opinion_question
         opinion.date = answer_date
-        opinion.text = '\n\n'.join(answer_text)
+        opinion.text = stored_answer
         opinion.save()
         opinion_question.has_answered.add(request.user.profile)
+        opinion_question.save()
     return HttpResponseRedirect(reverse('opinions:detail', args=(slug,)))
 
 @user_passes_test(has_been_checked, login_url='/login/')
