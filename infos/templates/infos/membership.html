@@ -97,8 +97,12 @@
     et tes accès à certaines ressources. <br />
     </small></p>
     <p class="alert alert-info"><small>
-    Pour la saison 2018/2019, le montant de l'adhésion en tant que joueur·euse
-    s'élève à <b>75€</b> pour l'année.
+    Pour la saison 2019/2020, le montant de l'adhésion en tant que joueur·euse
+    s'élève à <b>75€</b> pour l'année. <br />
+    Pour la saison 2019/2020, le montant de l'adhésion en tant qu'officiel·le
+    s'élève à <b>10€</b> pour l'année. <br />
+    Pour la saison 2019/2020, le montant de l'adhésion en tant que coach·e
+    s'élève à <b>10€</b> pour l'année. <br />
     </small></p>
     {% for role_slug,role_desc in roles %}
     <div class="radio">
@@ -127,7 +131,7 @@
     </small></p>
     <p class="alert alert-info"><small>
       Le prix de la licence FFRS, qu'elle soit avec ou sans patins, s'élève
-      à <b>35€</b>.  
+      à <b>40€</b>.  
     </small></p>
 
     {% for ffrs_slug,ffrs_desc in ffrs %}
@@ -149,13 +153,10 @@
        patins", merci de transmettre un certificat médical en cours de
        validité permettant "la pratique du Roller Derby
        <b>en compétition</b>".<br />
-       Si tu as fourni un certificat valide pour la saison 2017/2018, tu peux
-       demander à <a href="https://www.facebook.com/la.mandale">La Mandale</a>
-       de l'utiliser pour ton dossier d'inscription.
     </small></p>
     <p class="alert alert-warning"><small>
       Le cas échéant, ne soumet pas ton adhésion avant d'avoir vérifié
-      que ton certificat est bien valide.
+      que ton certificat est bien valide (qu'il n'a pas plus de 3 ans).
     </small></p>
     <center>
     <label>
@@ -216,8 +217,8 @@ Il te reste {{ user.profile.member.subscription_dues }}€ à verser à la
 Panam Squad. <br />
 Il est possible que ce traitement soit en cours de notre côté.<br />
 N'hésite pas à contacter la trésorerie
-(<a href="https://www.facebook.com/ClassicColvert">Colvert</a> ou
-<a href="https://www.facebook.com/nicolas.mowgli">Mowgli</a>) si tu as une question.<br />
+(<a href="https://www.facebook.com/Kiki.kilian.garnier">Kiki</a> ou
+<a href="https://www.facebook.com/jcharles.berhaut">JC</a>) si tu as une question.<br />
 <center>
 <a class="btn btn-default" href="{% url 'docs:redir' 'iban' %}">Payer par virement</a>
 <br />ou<br />

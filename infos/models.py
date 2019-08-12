@@ -29,13 +29,12 @@ class Profile(models.Model):
 class Member(models.Model):
     FFRS_CHOICES = (('PComp', 'Licence "en patins" par la Panam Squad'),
                     ('PFoot', 'Licence "non-pratiquant" par la Panam Squad'),
-                    ('OBorr', 'Licence par un autre club (prêt)'),
+                    ('OBorr', 'Licence FFRS par un autre club'),
                     ('NoLic', "Je n'ai pas besoin de licence FFRS"))
 
     ROLE_CHOICES = (('P', 'Jouer'),
                     ('O', 'Officier/Arbitrer'),
-                    ('C', 'Coacher'),
-                    ('S', 'Speaker'))
+                    ('C', 'Coacher'),)
 
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     real_name = models.CharField(max_length=200)
@@ -68,8 +67,10 @@ class Member(models.Model):
         dues = 0
         if self.role in ('P',):
             dues += 75
+        elif self.role in ('O', 'C',):
+            dues += 10
         if self.ffrs_status in ('PComp', 'PFoot'):
-            dues += 35
+            dues += 40
         return dues
 
     def health_cert_url(self):
