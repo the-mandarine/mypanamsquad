@@ -120,18 +120,13 @@
   <div class="form-group">
     <label class="control-label">Licence FFRS :</label>
     <p><small>
-      <a href="http://ffroller.fr/wp-content/uploads/CLU_Lic_002-1.pdf">
-        La licence FFRS évolue</a>.<br />
-      Nous ne savons pas encore précisément comment se présentent les 
-      inscriptions à la FFRS, cette saison. Dans le doute, nous te proposons
-      les mêmes alternatives que l'année dernière.<br />
       Si tu es absolument certain·e de ne pas patiner/rouler cette année,
       même en randonnée, mais que tu souhaites pouvoir officier sur des 
-      matchs, une licence "non-pratiquant" t'es nécessaire.<br />
+      matchs officiels, une licence "non-pratiquant" t'est nécessaire.<br />
     </small></p>
     <p class="alert alert-info"><small>
-      Le prix de la licence FFRS, qu'elle soit avec ou sans patins, s'élève
-      à <b>40€</b>.  
+      La prise de licence FFRS, qu'elle soit avec ou sans patins, s'élève
+      à <b>40€</b>.
     </small></p>
 
     {% for ffrs_slug,ffrs_desc in ffrs %}
@@ -184,6 +179,21 @@
     </label>
   </div>
   <hr />
+  <div class="form-group row">
+  <div class="form-check">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox"
+    name="ri_ok" value="yes" />
+    <small>
+    J'ai lu et j'accepte le <a href="https://my.panamsquad.com/docs/r/RI">
+    Règlement Intérieur de la Panam Squad</a> et je m'engage à respecter le 
+    <a href="https://mrda.org/resources/code-of-conduct/">Code de Conduite de la MRDA</a>, 
+    fédération dont la Panam Squad fait partie et son 
+    <a href="https://my.panamsquad.com/docs/r/mrda-sexual-harassment-policy">Annexe
+    sur le harcèlement sexuel</a>.
+    </small>
+  </label>
+  </div>
   <div class="form-check">
   <label class="form-check-label">
     <input class="form-check-input" type="checkbox"

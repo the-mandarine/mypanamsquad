@@ -107,6 +107,7 @@ def subscribe(request):
     save = bool(request.POST.get('save', False))
     submit = bool(request.POST.get('submit', False))
     data_ok = bool(request.POST.get('data_ok', False))
+    ri_ok = bool(request.POST.get('ri_ok', False))
     health_cert = request.FILES.get('health_cert', None)
     keep_health_cert = bool(request.POST.get('keep_health_cert', False))
     try:
@@ -133,6 +134,9 @@ def subscribe(request):
     # Check that the mandatory box
         if not data_ok:
             error_msg = "Il faut accepter que la Panam Squad utilise les informations fournies pour adhérer."
+            return membership(request, err=error_msg)
+        if not ri_ok:
+            error_msg = "Il faut accepter le Règlement Intérieur pour adhérer."
             return membership(request, err=error_msg)
         if member.ffrs_status in ('PComp',) and not member.health_cert:
             error_msg = "Il te faut avoir un certificat médical dans ton dossier pour acquérir ce type de license FFRS."
