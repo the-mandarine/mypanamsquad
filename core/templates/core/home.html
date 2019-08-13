@@ -6,8 +6,7 @@
     Hello {{ user.profile.derby_name }}!
   </h1>
   <p class="lead">
-  Bienvenue dans l'intranet de la Panam Squad. C'est un peu vide pour le moment
-  mais nous travaillons à remplir ce site de nouvelles fonctionnalités rapidement.<br />
+  Bienvenue dans l'intranet de la Panam Squad.<br />
   </p>
 {% if not user.profile.has_been_checked %}
 <div class="alert alert-warning" role="alert">
@@ -38,36 +37,22 @@
         {% endif %}
       </a>
     {% endif %}
-      <a class="list-group-item list-group-item-action"
+      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
         href="{% url 'events:index' %}">
         <span class="glyphicon glyphicon-calendar">&nbsp;</span>
         Evénements à venir
       </a>
-    {% if user.profile.has_been_checked %}
-      <a class="list-group-item list-group-item-action"
+      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
          href="{% url 'opinions:index' %}">
         <span class="glyphicon glyphicon-comment">&nbsp;</span>
         Donne ton opinion
       </a>
-    {% else %}
-      <a class="list-group-item list-group-item-action disabled"
-        href="#">
-        <span class="glyphicon glyphicon-comment">&nbsp;</span>Donne ton opinion
-      </a>
-    {% endif %}
-    {% if user.profile.has_been_checked %}
-      <a class="list-group-item list-group-item-action"
+      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
          href="{% url 'votes:index' %}">
         <span class="glyphicon glyphicon-bullhorn">&nbsp;</span>
         Votes
       </a>
-    {% else %}
-      <a class="list-group-item list-group-item-action disabled"
-        href="#">
-        <span class="glyphicon glyphicon-bullhorn">&nbsp;</span>Votes
-      </a>
-    {% endif %}
-      <a class="list-group-item list-group-item-action"
+      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
         href="{% url 'docs:index' %}">
         <span class="glyphicon glyphicon-file">&nbsp;</span>
         Documents et fichiers
