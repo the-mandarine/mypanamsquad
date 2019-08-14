@@ -22,7 +22,7 @@ class Event(models.Model):
     place = models.ForeignKey(Place, on_delete=models.PROTECT, null=True, blank=True)
     expected_members = models.ManyToManyField(Profile, blank=True)
 
-    def has_passed:
+    def has_passed(self):
         return self.date < date.today()
 
     def __str__(self):
