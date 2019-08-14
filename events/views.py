@@ -40,7 +40,7 @@ def has_been_checked(user):
         valid = False
     return valid
 
-@user_passes_test(has_been_checked, login_url='/login/')
+@user_passes_test(has_been_checked)
 def index(request):
     user = request.user
     now = TZ.localize(datetime.now())
@@ -48,7 +48,7 @@ def index(request):
     context = {'events': events}
     return render(request, 'events/index.html', context)
 
-@user_passes_test(has_been_checked, login_url='/login/')
+@user_passes_test(has_been_checked)
 def detail(request, slug):
     now = TZ.localize(datetime.now())
     user = request.user
@@ -66,7 +66,7 @@ def detail(request, slug):
         'attendance': attendance,
     })
 
-@user_passes_test(has_been_checked, login_url='/login/')
+@user_passes_test(has_been_checked)
 def attend(request, slug):
     now = TZ.localize(datetime.now())
     event = get_object_or_404(Event, slug=slug)
@@ -105,7 +105,7 @@ def attend(request, slug):
     attendance.save()
     return HttpResponseRedirect(reverse('events:detail', args=(slug,)))
 
-@user_passes_test(has_been_checked, login_url='/login/')
+@user_passes_test(has_been_checked)
 def proxy(request, slug):
     now = TZ.localize(datetime.now())
     event = get_object_or_404(Event, slug=slug)

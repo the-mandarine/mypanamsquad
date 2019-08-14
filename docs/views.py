@@ -15,7 +15,7 @@ def has_been_checked(user):
         valid = False
     return valid
 
-@user_passes_test(has_been_checked, login_url='/login/')
+@user_passes_test(has_been_checked)
 def index(request):
     docs = Doc.objects.all()
     context = {'docs': docs}

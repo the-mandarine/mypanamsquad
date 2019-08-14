@@ -37,22 +37,22 @@
         {% endif %}
       </a>
     {% endif %}
-      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
+      <a class="list-group-item list-group-item-action {{ maybe_disabled }}"
         href="{% url 'events:index' %}">
         <span class="glyphicon glyphicon-calendar">&nbsp;</span>
         Evénements à venir
       </a>
-      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
+      <a class="list-group-item list-group-item-action {{ maybe_disabled }}"
          href="{% url 'opinions:index' %}">
         <span class="glyphicon glyphicon-comment">&nbsp;</span>
         Donne ton opinion
       </a>
-      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
+      <a class="list-group-item list-group-item-action {{ maybe_disabled }}"
          href="{% url 'votes:index' %}">
         <span class="glyphicon glyphicon-bullhorn">&nbsp;</span>
         Votes
       </a>
-      <a class="list-group-item list-group-item-action {{ 'disabled' if not user.profile.has_been_checked }}"
+      <a class="list-group-item list-group-item-action {{ maybe_disabled }}"
         href="{% url 'docs:index' %}">
         <span class="glyphicon glyphicon-file">&nbsp;</span>
         Documents et fichiers
