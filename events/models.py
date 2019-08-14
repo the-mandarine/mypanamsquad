@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from infos.models import Profile
-import date
+from datetime import date
 import unicodedata
 import os
 
