@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from infos.models import Profile
+import date
 import unicodedata
 import os
 
@@ -20,6 +21,9 @@ class Event(models.Model):
     date = models.DateField()
     place = models.ForeignKey(Place, on_delete=models.PROTECT, null=True, blank=True)
     expected_members = models.ManyToManyField(Profile, blank=True)
+
+    def has_passed:
+        return self.date < date.today()
 
     def __str__(self):
         return "[%s] %s" % (self.date, self.name)

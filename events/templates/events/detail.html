@@ -15,6 +15,11 @@
 <div class="alert lead">
 {{ event.desc|linebreaks }}
 </div>
+{% if event.has_passed %}
+<div class="alert lead">
+Cet événement est passé.
+</div>
+{% else %}
 <!-- Is this member proxy ? -->
 <div>
 {% for member_proxy in member_proxies %}
@@ -99,5 +104,6 @@ remplacée.
   </div>
 </form>
 </div>
+{% endif %}
 {% endblock %}
 
