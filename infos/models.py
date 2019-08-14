@@ -29,8 +29,7 @@ class Profile(models.Model):
 class Member(models.Model):
     FFRS_CHOICES = (('PComp', 'Licence "en patins" par la Panam Squad'),
                     ('PFoot', 'Licence "non-pratiquant" par la Panam Squad'),
-                    ('OBorr', 'Licence FFRS par un autre club'),
-                    ('NoLic', "Je n'ai pas besoin de licence FFRS"))
+                    ('NoLic', "Licence par un autre club ou pas besoin de licence FFRS"))
 
     ROLE_CHOICES = (('P', 'Jouer'),
                     ('O', 'Officier/Arbitrer'),
