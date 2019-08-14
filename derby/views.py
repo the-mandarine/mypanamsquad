@@ -131,7 +131,7 @@ def profile_update(request):
 
 @user_passes_test(_can_see_variousinfos)
 def export_form(request):
-    profiles = Player.objects.order_by('profile__derby_number')
+    profiles = Player.objects.filter(profile__has_been_checked = True).order_by('profile__derby_number')
     context = {'profiles': profiles}
     return render(request, 'export/form.html', context)
 
