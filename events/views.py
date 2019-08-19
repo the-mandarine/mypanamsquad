@@ -17,9 +17,9 @@ def get_proxies(event):
     profiles = event.expected_members.filter(has_been_checked = True).order_by('derby_name')
     for profile in profiles:
         profile.possible_proxy = True
-        proxy_absent = Attendance.objects.filter(member = profile, attendance = 'N')
-        proxy_from = Attendance.objects.filter(member = profile, attendance = 'P')
-        proxy_to_count = Attendance.objects.filter(proxy_to = profile, attendance = 'P').count()
+        proxy_absent = Attendance.objects.filter(event = event, member = profile, attendance = 'N')
+        proxy_from = Attendance.objects.filter(event = event, member = profile, attendance = 'P')
+        proxy_to_count = Attendance.objects.filter(event = event, proxy_to = profile, attendance = 'P').count()
         if proxy_absent:
             #Proxy won't be there
             profile.possible_proxy = False
