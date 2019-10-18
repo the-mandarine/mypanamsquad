@@ -187,6 +187,6 @@ def validate_payments(request):
 
 @user_passes_test(_can_validate_paid)
 def payments(request):
-    submitted_members = Member.objects.filter(submitted=True).order_by('-has_paid', 'profile__derby_name')
+    submitted_members = Member.objects.filter(submitted=True).order_by('has_paid', 'profile__derby_name')
     return render(request, 'infos/payments.html', {'submitted_members': submitted_members})
 
