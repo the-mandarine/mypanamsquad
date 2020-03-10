@@ -12,7 +12,7 @@ TZ = timezone(settings.TIME_ZONE)
 class Vote(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    text = models.TextField(max_length=400)
+    text = models.TextField(max_length=4000)
     can_vote = models.ManyToManyField(Profile, related_name='can_vote_for', blank=True)
     group_can_vote = models.ManyToManyField(ProfileGroup, related_name='can_vote_for', blank=True)
     has_voted = models.ManyToManyField(Profile, related_name='voted_for', blank=True, editable=False)
