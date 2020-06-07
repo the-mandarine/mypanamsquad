@@ -8,21 +8,9 @@
 {% block content %}
 {% if not request.user.is_authenticated %}
   <div class="cover">
-  <h1 class="cover-heading">Hey, salut!</h1>
+  <h1 class="cover-heading">C'est pas joli, hein ?</h1>
   <div class="lead">
     Bienvenue sur l'intranet de la Panam Squad.
-  </div>
-  <div class="lead">
-  <form method="POST" action="{% url 'social:begin' 'facebook' %}">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ request.GET.next }}" />
-    <input
-      type="submit"
-      class="btn btn-info btn-lg col-sm-8 col-sm-offset-2"
-      style="font-size: 40px; line-height: 2em;"
-      value="Connecte-toi par Facebook" />
-  </form>
-  <br /><br />
   </div>
 
 {%endif %}
