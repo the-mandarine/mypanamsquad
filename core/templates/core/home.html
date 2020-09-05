@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
   <div class="cover">
-  <h1 class="cover-heading">
-    <!--<span class="glyphicon glyphicon-sunglasses">&nbsp;</span>-->
-    Hello {{ user.profile.derby_name }}!
-  </h1>
   <p class="lead">
-  Bienvenue dans l'intranet de la Panam Squad.<br />
+  Bienvenue dans l'extranet de la Panam Squad.<br />
+  Ce portail contient de nombreuses fonctionnalit&eacute;s et nous avons essay&eacute;
+  de le rendre le plus intuitif possible.
   </p>
 {% if not user.profile.has_been_checked %}
 <div class="alert alert-warning" role="alert">

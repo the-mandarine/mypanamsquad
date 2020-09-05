@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="cover">
-  <div class="lead">
   {% if not user.profile.derby_name or not user.profile.derby_number %}
-  <h1 class="cover-heading">
-    <!--<span class="glyphicon glyphicon-user">&nbsp;</span>-->
-    Créer mon profil
-  </h1>
+<h2>Cr&eacute;er un profil</h2>
 {% if error_message %}
 <div class="alert alert-danger" role="alert">
   {{ error_message }}
@@ -17,32 +13,40 @@
   {{ success_message }}
 </div>
 {% endif %}
-
-<div class="alert alert-warning" role="alert">
-  La création d'un profil sur l'intranet Panam Squad ne constitue pas une
-  adhésion.
+<p>
+Afin d'acc&eacute;der aux diff&eacute;rentes fonctionalit&eacute;s de cet extranet, 
+et de pouvoir t'itendifier plus facilement par la suite merci de cr&eacute;er un profil.<br/>
+In order to access the functionalities of this site, and to identify yourself more easily
+later, please, create a profile.
+</p>
+<div class="alert alert-info" role="alert">
+  La cr&eacute;ation d'un profil sur l'extranet Panam Squad <b>ne</b> constitue <b>pas</b> une
+  adh&eacute;sion. <br/>
+  Creating a profile on this site is <b>not</b> a subscription for any Panam Squad membership.
 </div>
-  <form class="form-horizontal" action="{% url 'profile:create' %}" method="post">
+  <form class="" action="{% url 'profile:create' %}" method="post">
   {% csrf_token %}
-  <div class="form-group">
-    <label for="derby_name" class="control-label">
+  <div class="form-group row">
+    <label for="derby_name" class="col-sm-2 col-form-label">
       Derby name :
     </label>
-    <input type="text" class="form-control"
+    <input type="text" class="form-control col-sm-4"
       value="{{ user.profile.derby_name }}"
+      placeholder="Derby Name"
       id="derby_name" name="derby_name"/>
   </div>
-  <div class="form-group">
-    <label for="derby_number" class="control-label">
+  <div class="form-group row">
+    <label for="derby_number" class="col-sm-2 col-form-label">
       Derby number :
     </label>
-    <input type="text" class="form-control"
+    <input type="text" class="form-control col-sm-4"
       value="{{ user.profile.derby_number }}"
+      placeholder="XXXX"
       id="derby_number" name="derby_number"/>
   </div>
-  <div class="form-group row">
-    <div class="col-md-2 col-md-offset-5">
-      <input type="submit" class="btn btn-lg btn-info" value="Créer" />
+  <div class="form-group">
+    <div class="">
+      <input type="submit" value="Ok" class="btn btn-lg btn-outline-primary" />
     </div>
   </div>
   </form>
