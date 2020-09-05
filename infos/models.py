@@ -33,7 +33,8 @@ class Member(models.Model):
 
     ROLE_CHOICES = (('P', 'Jouer'),
                     ('O', 'Officier/Arbitrer'),
-                    ('C', 'Coacher'),)
+                    ('C', 'Coacher'),
+                    ('A', 'Autre'),)
 
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
     real_name = models.CharField(max_length=200)
