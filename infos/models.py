@@ -67,7 +67,7 @@ class Member(models.Model):
         dues = 0
         if self.role in ('P',):
             dues += 75
-        elif self.role in ('O', 'C',):
+        elif self.role in ('A', 'O', 'C',):
             dues += 10
         if self.ffrs_status in ('PComp', 'PFoot'):
             dues += 40
